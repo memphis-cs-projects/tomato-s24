@@ -30,10 +30,12 @@
 - Devise
   - A Devise `User` class has been generated (see `app/model/user.rb`).
   - The Devise view templates have been added (see `app/views/devise/`).
-  - Note: A root route is required by Devise, but is not included with the base app.
 - Bootstrap v5.2.3
 - BootSwatch v5.2.3
   - A list of BootSwatch themes can be found here.
   - The `darkly` theme is set by default (see `app/assets/stylesheets/application.scss`).
 - Flash Notifications
   - Implemented as per the Rails Demos-n-Deets.
+- Home Page
+  - A `HomeController` with a `show` action and view template is included.
+  - The root route is set to this `show` action (see `config/routes.rb`).
