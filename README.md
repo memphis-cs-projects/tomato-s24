@@ -8,10 +8,12 @@
 
 ### Prerequisites
 
-- RVM is assumed.
-- Ruby version 3.1.2 is required.
+- **RVM** is assumed (see [Rails Demos-n-Deets](https://rails-demos-n-deets-2023.herokuapp.com/demos/development-environment) for setup instructions).
+- **Ruby version 3.1.2** is required.
   - `rvm install 3.1.2` - Install Ruby 3.1.2 using RVM.
-- PostgreSQL is required.
+- **Bundler** is required (see [Rails Demos-n-Deets](https://rails-demos-n-deets-2023.herokuapp.com/demos/development-environment) for setup instructions).
+- **PostgreSQL** is required  (see [Rails Demos-n-Deets](https://rails-demos-n-deets-2023.herokuapp.com/demos/development-environment) for setup instructions).
+- **NodeJS** is required (see [Rails Demos-n-Deets](https://rails-demos-n-deets-2023.herokuapp.com/demos/development-environment) for setup instructions).
 
 ### Initializing the App
 
@@ -22,20 +24,20 @@
 
 ### Running the App
 
-- `rails s` - Run the development web server.
+- `rails server` - Run the development web server.
 - Open <http://localhost:3000/> in the browser to launch the app (root page).
 
 ## Included with the Base App
 
-- Devise
+- **[Devise](https://github.com/heartcombo/devise#readme)**
   - A Devise `User` class has been generated (see `app/model/user.rb`).
   - The Devise view templates have been added (see `app/views/devise/`).
-- Bootstrap v5.2.3
-- BootSwatch v5.2.3
-  - A list of BootSwatch themes can be found here.
-  - The `darkly` theme is set by default (see `app/assets/stylesheets/application.scss`).
-- Flash Notifications
-  - Implemented as per the Rails Demos-n-Deets.
-- Home Page
+- **[Bootstrap v5.2.3](https://getbootstrap.com/docs/5.2/getting-started/introduction/)**
+- **[BootSwatch v5.2.3](https://bootswatch.com/)**
+  - A list of BootSwatch themes can be found [here](https://bootswatch.com/).
+  - The [Darkly theme](https://bootswatch.com/darkly/) is set by default (see `app/assets/stylesheets/application.scss`).
+- **Flash Notifications**
+  - Implemented as per the [Rails Demos-n-Deets](https://rails-demos-n-deets-2023.herokuapp.com/deets/flash-notifications).
+- **Home Page**
   - A `HomeController` with a `show` action and view template is included.
   - The root route is set to this `show` action (see `config/routes.rb`).
