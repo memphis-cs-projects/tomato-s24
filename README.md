@@ -1,8 +1,8 @@
-# Team xxxx
+# Team Tomato
 
 ## Team Members
 
-- xxxx
+- Rohit Reddy Somireddy
 
 ## How to Initialize and Run the App
 
