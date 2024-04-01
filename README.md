@@ -2,7 +2,7 @@
 
 ## Team Members
 
-- Sai Saketh Konakalla
+- Sai Saketh Konakalla (saketh.konakalla21@gmail.com)
 - Vishal Reddy (c.vishal.reddy108@gmail.com)
 - Rohit Reddy Somireddy (rohit.somireddy@gmail.com)
 - Vamshidhar Reddy Cherumani (vamshichirumani@gmail.com)
