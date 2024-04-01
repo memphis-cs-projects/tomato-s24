@@ -4,8 +4,8 @@
 
 - Sai Saketh Konakalla
 - Vishal Reddy (c.vishal.reddy108@gmail.com)
-- Vamshidhar Reddy Cherumani
 - Rohit Reddy Somireddy (rohit.somireddy@gmail.com)
+- Vamshidhar Reddy Cherumani (vamshichirumani@gmail.com)
 
 ## How to Initialize and Run the App
 
