@@ -1,8 +1,8 @@
-# Team xxxx
+# Team Tomato
 
 ## Team Members
 
-- xxxx
+- Sai Saketh Konakalla
 
 ## How to Initialize and Run the App
 
