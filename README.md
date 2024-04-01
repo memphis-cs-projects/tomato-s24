@@ -2,6 +2,7 @@
 
 ## Team Members
 
+- Vamshidhar Reddy Cherumani
 - Rohit Reddy Somireddy
 
 ## How to Initialize and Run the App
