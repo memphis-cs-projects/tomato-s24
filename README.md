@@ -3,7 +3,7 @@
 ## Team Members
 
 - Sai Saketh Konakalla
-- Vishal Reddy
+- Vishal Reddy (c.vishal.reddy108@gmail.com)
 - Vamshidhar Reddy Cherumani
 - Rohit Reddy Somireddy
 
