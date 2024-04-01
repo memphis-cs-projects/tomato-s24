@@ -1,8 +1,10 @@
-# Team tomato
+<<<<<<< HEAD
+# Team Tomato
 
 ## Team Members
 
-- vishal reddy
+- Vishal Reddy
+- Rohit Reddy Somireddy
 
 ## How to Initialize and Run the App
 
