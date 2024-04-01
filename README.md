@@ -1,8 +1,8 @@
-# Team xxxx
+# Team Tomato
 
 ## Team Members
 
-- xxxx
+- Vamshidhar Reddy Cherumani 
 
 ## How to Initialize and Run the App
 
