@@ -1,7 +1,9 @@
+<<<<<<< HEAD
 # Team Tomato
 
 ## Team Members
 
+- Vishal Reddy
 - Vamshidhar Reddy Cherumani
 - Rohit Reddy Somireddy
 
