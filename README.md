@@ -3,6 +3,9 @@
 ## Team Members
 
 - Sai Saketh Konakalla
+- Vishal Reddy
+- Vamshidhar Reddy Cherumani
+- Rohit Reddy Somireddy
 
 ## How to Initialize and Run the App
 
