@@ -1,0 +1,36 @@
+# == Schema Information
+#
+# Table name: zords
+#
+#  id          :bigint           not null, primary key
+#  ability     :string
+#  capacity    :integer
+#  description :text
+#  material    :string
+#  name        :string
+#  price       :decimal(, )
+#  quantity    :integer
+#  theme       :string
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#
+
+one:
+  name: MyString
+  theme: MyString
+  material: MyString
+  capacity: 1
+  ability: MyString
+  price: 9.99
+  description: MyText
+  quantity: 1
+
+two:
+  name: MyString
+  theme: MyString
+  material: MyString
+  capacity: 1
+  ability: MyString
+  price: 9.99
+  description: MyText
+  quantity: 1

@@ -1,0 +1,18 @@
+<div class="row mb-4">
+  <% @zords.each do |zord| %>
+    <div class="col-md-3">
+      <%= image_tag zord.figure_image, class: "img-fluid rounded", style: "width: 200px; height: 200px; object-fit: cover;" %>
+    </div>
+    <div class="col-md-9">
+      <div class="card-body">
+        <h5 class="card-title"><%= zord.name %></h5>
+        <p class="card-text">Price: <%= number_to_currency(zord.price) %></p>
+        <p class="card-text"><%= zord.description %></p>
+        <div class="mt-3">
+          <%= link_to "View Details", zords_path, class: "btn btn-primary me-2" %>
+          <%= link_to "Add to Cart", zords_path, class: "btn btn-success" %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
