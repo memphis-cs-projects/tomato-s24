@@ -19,6 +19,11 @@ user2 = User.create!(
   password: 'password'
 )
 
+vendor1 = User.create!(
+  email: 'vendor1@zordforge.com',
+  password: 'password'
+)
+
 
 zord1 = Zord.create!(
   name: "Zord 1",
