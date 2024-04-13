@@ -1,0 +1,18 @@
+
+<h1>Create New To-Do Item</h1>
+ 
+<%= bootstrap_form_with model: @request, url: requests_all_requests_path, method: :post, data: { turbo: false } do |f| %>
+  <div class="row">
+  <% Request::MATERIAL_OPTIONS.each do |material_option| %>
+    <div class="col-auto">
+      <%= f.radio_button :material, material_option.last %>
+    </div>
+  <% end %>
+</div>
+
+  <%= f.text_field :theme %>
+  <%= f.text_field :ability %>
+  <%= f.number_field :capacity%>
+  <%= f.submit 'Create Request'%>
+ 
+<% end %>
