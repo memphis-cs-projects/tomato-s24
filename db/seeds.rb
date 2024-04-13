@@ -19,9 +19,10 @@ user2 = User.create!(
   password: 'password'
 )
 
-vendor1 = User.create!(
-  email: 'vendor1@zordforge.com',
-  password: 'password'
+user3 = User.create!(
+  email: 'vishal@email.com',
+  password: 'password',
+  vendor: true
 )
 
 

@@ -19,4 +19,9 @@ class Zord < ApplicationRecord
 
   has_one_attached :figure_image
 
+  validates :name, presence: true
+  validates :description, presence: true
+  validates :price, presence: true
+  validates :figure_image, presence: true, allow_blank: true
+
 end
