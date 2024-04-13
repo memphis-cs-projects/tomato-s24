@@ -1,7 +1,9 @@
 <div class="row mb-4">
-<div class="col-md-12 text-end mb-3">
-  <%= link_to "Add Zord", new_zord_path, class: "btn btn-primary", class: 'btn btn-primary' %>
-</div>
+<% if current_user && current_user.vendor? %>
+  <div class="col-md-12 text-end mb-3">
+    <%= link_to "Add Zord", new_zord_path, class: "btn btn-primary" %>
+  </div>
+<% end %>
   <% @zords.each do |zord| %>
     <div class="col-md-3">
       <%= image_tag zord.figure_image, class: "img-fluid rounded", style: "width: 200px; height: 200px; object-fit: cover;" %>

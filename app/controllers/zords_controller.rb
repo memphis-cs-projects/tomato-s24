@@ -1,5 +1,5 @@
 class ZordsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:index]
   before_action :require_vendor, only: [:new, :create]
 
   def index
