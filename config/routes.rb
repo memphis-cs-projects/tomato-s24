@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   root to:'zords#index'
 
   get 'zords', to: 'zords#index', as: 'zords'
+  get 'zords/:id', to: 'zords#show', as: 'zord'
   get 'zords/new', to: 'zords#new', as: 'new_zord'
   post 'zords', to: 'zords#create'
 
