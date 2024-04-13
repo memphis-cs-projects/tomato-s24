@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   root to:'zords#index'
 
   get 'zords', to: 'zords#index', as: 'zords'
+  get 'zords/new', to: 'zords#new', as: 'new_zord'
+  post 'zords', to: 'zords#create'
 
   # Devise routes for user sign-in, sign-up, sign-out, etc.
   devise_for :users
