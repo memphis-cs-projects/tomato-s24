@@ -3,8 +3,8 @@ class ZordsController < ApplicationController
   before_action :require_vendor, only: [:new, :create]
 
   def index
-    @zords = Zord.order(:id)
-    render :index
+    @q = Zord.ransack(params[:q])
+    @zords = @q.result(distinct: true).order(:id)
   end
 
   def show
