@@ -1,7 +1,6 @@
-<h1>Create New Zord</h1>
- 
-<%= bootstrap_form_with model: @zord, url: zords_path, method: :post, data: { turbo: false } do |f| %>
- 
+<h1>Edit Zord</h1>
+
+<%= bootstrap_form_for @zord, url: zord_path(@zord), method: :patch, data: { turbo: false } do |f| %>
   <%= f.text_field :name, label: "Name" %>
   <%= f.text_area :description, label: "Description" %>
   <%= f.text_field :ability, label: "Ability" %>
@@ -11,7 +10,7 @@
   <%= f.number_field :quantity, label: "Quantity" %>
   <%= f.text_field :theme, label: "Theme" %>
   <%= f.file_field :figure_image, label: "Figure Image" %>
-  
+
   <%= f.submit %>
   <%= link_to "Cancel", zords_path, class: "btn btn-primary" %>
 <% end %>

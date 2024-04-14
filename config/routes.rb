@@ -7,9 +7,13 @@ Rails.application.routes.draw do
 
  root to:'zords#index'
 
- get 'zords', to: 'zords#index', as: 'zords'
- get 'zords/new', to: 'zords#new', as: 'new_zord'
- post 'zords', to: 'zords#create'
+  get 'zords', to: 'zords#index', as: 'zords'
+  get 'zords/new', to: 'zords#new', as: 'new_zord'
+  get 'zords/:id/edit', to: 'zords#edit', as: 'edit_zord'
+  get 'zords/:id', to: 'zords#show', as: 'zord'
+  post 'zords', to: 'zords#create'
+  patch 'zords/:id', to: 'zords#update'
+
 
  get:'requests', to:'requests#all_requests', as:'requests_all_requests'
  get:'requests/new_customize_zord', to:'requests#new_customize_zord', as:'request_customize_zord'

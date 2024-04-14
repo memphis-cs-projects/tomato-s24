@@ -94,3 +94,7 @@ gem 'bootstrap_form', '~> 5.2.3'
 
 # Authentication
 gem 'devise'
+
+
+#Ransack for searching,sorting and filetring
+gem 'ransack'
