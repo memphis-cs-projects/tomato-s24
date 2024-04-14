@@ -8,6 +8,9 @@
       <th>Theme</th>
       <th>Ability</th>
       <th>Capacity</th>
+      <th></th>
+      <th></th>
+      <th></th>
     </tr>
   </thead>
  
@@ -18,9 +21,16 @@
         <td><%= request.theme %></td>
         <td><%= request.ability %></td>
         <td><%= request.capacity %></td>
+        <td><%= link_to "Show", request_path(request) %></td>
+        <td><%= link_to "Edit", edit_request_path(request) %></td>
+        <td><%= button_to "Delete", request_path(request), method: :delete, data: { turbo: false }, class: "btn btn-sm btn-danger" %></td>
       </tr>
     <% end %>
   </tbody>
- 
-</table>
+ </table>
+ <p>
+  <%= link_to "Create New Request", request_customize_zord_path, class: 'btn btn-primary' %>
+  </p>
+
+
 

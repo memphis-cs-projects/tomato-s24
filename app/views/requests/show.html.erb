@@ -1,0 +1,17 @@
+<h1><%= @request.material %></h1>
+ 
+<p>
+  Material: <%= @request.material %>
+</p>
+ 
+<p>
+  Theme: <%= @request.theme %>
+</p>
+
+<p>
+    Ability: <%= @request.ability%>
+</p>
+
+<p>
+    <%= link_to "Home", requests_all_requests_path, class: 'btn btn-primary'%>
+</p>

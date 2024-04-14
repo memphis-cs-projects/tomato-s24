@@ -1,8 +1,7 @@
-
-<h1>Create New To-Do Item</h1>
+<h1>Edit Request</h1>
  
-<%= bootstrap_form_with model: @request, url: requests_all_requests_path, method: :post, data: { turbo: false } do |f| %>
-  <% if @request.errors.any? %>
+<%= bootstrap_form_with model: @request, url: request_path(@request), method: :patch, data: { turbo: false } do |f| %>
+ <% if @request.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@request.errors.count, "error") %> prohibited this request from being saved:</h2>
       <ul>
@@ -33,6 +32,5 @@
     </div>
   <% end %>
 </div>
-  <%= f.submit 'Create Request'%>
- 
+    <%= f.submit 'Update Request'%>
 <% end %>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>App</title>
+    <title>ZordForge</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -10,8 +10,65 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
+  <body style="padding-top: 70px;">
     <%= render 'shared/flash' %>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+      <div class="container-fluid">
+        <%= link_to "ZordForge", root_path, class: "navbar-brand" %>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+            <li class="nav-item">
+              <%= link_to "Home", zords_path, class: "nav-link" %>
+            </li>
+            <% if user_signed_in? %>
+              <% if current_user.vendor?%>
+                <li class="nav-item">
+                  <%= link_to "Requests", zords_path, class: "nav-link" %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to "Add Limited Edition Zord", zords_path, class: "nav-link" %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to "Manage Inventory", zords_path, class: "nav-link" %>
+                </li>
+              <% else %>
+                <li class="nav-item">
+                  <%= link_to "Customize", zords_path, class: "nav-link" %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to "Orders", zords_path, class: "nav-link" %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to "Cart", zords_path, class: "nav-link" %>
+                </li>
+              <% end %>
+            <% end %>
+          </ul>
+          <ul class="navbar-nav">
+            <% if user_signed_in? %>
+              <li class="nav-item">
+                <%= link_to "Hi, #{current_user.email}", edit_user_registration_path, class: "nav-link btn btn-link" %>
+              </li>
+              <li class="nav-item">
+                <%= button_to 'Sign Out', destroy_user_session_path, method: :delete, data: { turbo: false }, class: 'nav-link btn btn-link' %>
+              </li>
+            <% else %>
+              <li class="nav-item">
+                <%= link_to 'Sign In', new_user_session_path, class: "nav-link btn btn-link" %>
+              </li>
+              <li class="nav-item">
+                <%= link_to 'Sign Up', new_user_registration_path, class: "nav-link btn btn-link" %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </nav>
 
     <main role="main" class="container">
       <%= yield %>
