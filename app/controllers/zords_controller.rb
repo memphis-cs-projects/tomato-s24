@@ -5,6 +5,7 @@ class ZordsController < ApplicationController
   def index
     @q = Zord.ransack(params[:q])
     @zords = @q.result(distinct: true).order(:id)
+    render :index
   end
 
   def show
