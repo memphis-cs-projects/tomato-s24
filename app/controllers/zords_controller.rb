@@ -1,6 +1,6 @@
 class ZordsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :require_vendor, only: [:new, :create, :edit, :update]
+  before_action :require_vendor, only: [:new, :create, :edit, :update, :destroy]
 
   def index
     @q = Zord.ransack(params[:q])
@@ -54,9 +54,16 @@ class ZordsController < ApplicationController
     end
   end
 
+  def destroy
+    @zord = Zord.find(params[:id])
+    @zord.destroy
+    flash[:success] = 'Zord was successfully deleted!'
+    redirect_to zords_url
+  end
+
   def require_vendor
     unless current_user.vendor?
-      redirect_to zords_path, alert: "Only vendors can add/edit new zords."
+      redirect_to zords_path, alert: "Only vendors can manage zords."
     end
   end
 
