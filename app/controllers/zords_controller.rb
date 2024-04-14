@@ -1,11 +1,17 @@
 class ZordsController < ApplicationController
-  before_action :authenticate_user!, except: [:index]
+  before_action :authenticate_user!, except: [:index, :show]
   before_action :require_vendor, only: [:new, :create]
 
   def index
     @zords = Zord.order(:id)
     render :index
   end
+
+  def show
+    @zord = Zord.find(params[:id])
+    render :show
+  end
+
 
   def new
     if current_user.vendor?
