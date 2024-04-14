@@ -1,3 +1,16 @@
+<%= search_form_for @q do |f| %>
+  <div class="row mb-4 fixed">
+    <div class="col-md-10">
+      <%= f.label :name_or_material_or_theme_or_ability_cont, "Search by Name, Material, Theme, Ability" %>
+      <%= f.search_field :name_or_material_or_theme_or_ability_cont, class: "form-control" %>
+    </div>
+    <div class="col-md-2 mt-4">
+      <%= f.submit "Search", class: "btn btn-primary" %>
+    </div>
+  </div>
+<% end %>
+
+
 <div class="row mb-4">
 <% if current_user && current_user.vendor? %>
   <div class="col-md-12 text-end mb-3">
@@ -5,24 +18,28 @@
   </div>
 <% end %>
   <% @zords.each do |zord| %>
-    <div class="col-md-3">
-      <%= image_tag zord.figure_image, class: "img-fluid rounded", style: "width: 200px; height: 200px; object-fit: cover;" %>
-    </div>
-    <div class="col-md-9">
-      <div class="card-body">
-        <h5 class="card-title"><%= zord.name %></h5>
-        <p class="card-text">Price: <%= number_to_currency(zord.price) %></p>
-        <p class="card-text"><%= zord.description %></p>
-        <div class="mt-3">
-          <%= link_to "View Details", zord_path(zord), class: "btn btn-primary me-2" %>
-          <% if current_user && !current_user.vendor? %>
-            <%= link_to "Add to Cart", zords_path, class: "btn btn-success" %>
-          <% end %>
-          <% if current_user && current_user.vendor? %>
+  
+      <div class="col-md-3 mb-1 mt-1 ">
+        <%= image_tag zord.figure_image, class: "img-fluid rounded", style: "width: 200px; height: 200px; object-fit: cover;" %>
+      </div>
+      <div class="col-md-9 mb-1 mt-1">
+        <div class="card-body">
+          <h5 class="card-title"><%= zord.name %></h5>
+          <p class="card-text mb-1">Price: <%= number_to_currency(zord.price) %></p>
+          <p class="card-text mb-1"><strong>Material:</strong><%= zord.material %></p>
+          <p class="card-text mb-1"><strong>Theme:</strong><%= zord.theme %></p>
+          <p class="card-text mb-1"><strong>Description:</strong><%= zord.description %></p>
+          <div class="mt-3 mb-3">
+            <%= link_to "View Details", zord_path(zord), class: "btn btn-primary me-2" %>
+            <% if current_user && !current_user.vendor? %>
+              <%= link_to "Add to Cart", zords_path, class: "btn btn-success" %>
+            <% end %>
+            <% if current_user && current_user.vendor? %>
               <%= link_to "Edit Zord", edit_zord_path(zord), class: "btn btn-primary" %>
-          <% end %>
+            <% end %>
+          </div>
+
         </div>
       </div>
-    </div>
   <% end %>
 </div>
