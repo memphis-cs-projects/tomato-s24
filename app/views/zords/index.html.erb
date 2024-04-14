@@ -18,6 +18,9 @@
           <% if current_user && !current_user.vendor? %>
             <%= link_to "Add to Cart", zords_path, class: "btn btn-success" %>
           <% end %>
+          <% if current_user && current_user.vendor? %>
+              <%= link_to "Edit Zord", edit_zord_path(zord), class: "btn btn-primary" %>
+          <% end %>
         </div>
       </div>
     </div>
