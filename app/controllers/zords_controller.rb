@@ -4,7 +4,8 @@ class ZordsController < ApplicationController
 
   def index
     @q = Zord.ransack(params[:q])
-    @zords = @q.result(distinct: true).order(:id)
+    @zords = @q.result(distinct: true)
+    @zords = @zords.order(params[:q][:s]) if params[:q] && params[:q][:s].present?
     render :index
   end
 
