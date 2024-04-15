@@ -1,0 +1,13 @@
+<h1>Shopping Cart</h1>
+
+<div class="row mb-4">
+  <% @cart.each do |item| %>
+    <div class="col-md-9">
+      <div class="card-body">
+        <h5 class="card-title"><%= item.user_id %></h5>
+        <p class="card-text"><%= item.zord_id%></p>
+        <p class="card-text">Quantity: <%= item.quantity %></p>
+      </div>
+    </div>
+  <% end %>
+</div>

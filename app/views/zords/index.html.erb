@@ -32,7 +32,7 @@
           <div class="mt-3 mb-3">
             <%= link_to "View Details", zord_path(zord), class: "btn btn-primary me-2" %>
             <% if current_user && !current_user.vendor? %>
-              <%= link_to "Add to Cart", zords_path, class: "btn btn-success" %>
+              <%= button_to "Add to Cart", add_to_cart_path(zord), method: :post, class: "btn btn-success" %>
             <% end %>
             <% if current_user && current_user.vendor? %>
               <%= link_to "Edit Zord", edit_zord_path(zord), class: "btn btn-primary" %>
