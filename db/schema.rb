@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_04_14_212653) do
+ActiveRecord::Schema[7.0].define(version: 2024_04_15_210803) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -42,6 +42,15 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_14_212653) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "addresses", force: :cascade do |t|
+    t.string "street_address"
+    t.string "city"
+    t.string "state"
+    t.integer "zipcode"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "cart_items", force: :cascade do |t|
     t.bigint "cart_id", null: false
     t.bigint "zord_id", null: false
@@ -57,6 +66,28 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_14_212653) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_carts_on_user_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.string "status"
+    t.bigint "address_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "zord_id", null: false
+    t.bigint "payment_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["address_id"], name: "index_orders_on_address_id"
+    t.index ["payment_id"], name: "index_orders_on_payment_id"
+    t.index ["user_id"], name: "index_orders_on_user_id"
+    t.index ["zord_id"], name: "index_orders_on_zord_id"
+  end
+
+  create_table "payments", force: :cascade do |t|
+    t.string "card_type"
+    t.integer "card_number"
+    t.date "expiry_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -90,4 +121,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_14_212653) do
   add_foreign_key "cart_items", "carts"
   add_foreign_key "cart_items", "zords"
   add_foreign_key "carts", "users"
+  add_foreign_key "orders", "addresses"
+  add_foreign_key "orders", "payments"
+  add_foreign_key "orders", "users"
+  add_foreign_key "orders", "zords"
 end
