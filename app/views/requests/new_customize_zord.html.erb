@@ -1,10 +1,9 @@
 
-<h1>Create New To-Do Item</h1>
+<h1>Create New Request </h1>
  
 <%= bootstrap_form_with model: @request, url: requests_all_requests_path, method: :post, data: { turbo: false } do |f| %>
   <% if @request.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@request.errors.count, "error") %> prohibited this request from being saved:</h2>
       <ul>
         <% @request.errors.full_messages.each do |msg| %>
           <li><%= msg %></li>
@@ -12,7 +11,7 @@
       </ul>
     </div>
   <% end %>
-  
+
   <%= f.select :material, Request::MATERIAL_OPTIONS, { disabled: ['select'] }, { prompt: 'Select Material' } %>
 
   <div class="row">

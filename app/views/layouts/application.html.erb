@@ -24,6 +24,8 @@
 
             <li class="nav-item">
               <%= link_to "Home", zords_path, class: "nav-link" %>
+            <li class="nav-item">
+              <%= link_to "Customize", request_customize_zord_path , class: "nav-link"%>
             </li>
             <% if user_signed_in? %>
               <% if current_user.vendor?%>
@@ -37,9 +39,6 @@
                   <%= link_to "Manage Inventory", zords_path, class: "nav-link" %>
                 </li>
               <% else %>
-                <li class="nav-item">
-                  <%= link_to "Customize", zords_path, class: "nav-link" %>
-                </li>
                 <li class="nav-item">
                   <%= link_to "Orders", zords_path, class: "nav-link" %>
                 </li>

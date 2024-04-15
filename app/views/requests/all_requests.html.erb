@@ -22,8 +22,6 @@
         <td><%= request.ability %></td>
         <td><%= request.capacity %></td>
         <td><%= link_to "Show", request_path(request) %></td>
-        <td><%= link_to "Edit", edit_request_path(request) %></td>
-        <td><%= button_to "Delete", request_path(request), method: :delete, data: { turbo: false }, class: "btn btn-sm btn-danger" %></td>
       </tr>
     <% end %>
   </tbody>

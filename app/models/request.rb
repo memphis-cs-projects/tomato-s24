@@ -27,7 +27,6 @@ class Request < ApplicationRecord
   CAPACITY_OPTIONS = [['1','1'],['5','5'],['20','20']]
 
   validate :unique_combination, on: :create
-  validate :unique_combination, on: :update
 
   private
 
