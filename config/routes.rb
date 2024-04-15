@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   get 'zords/:id', to: 'zords#show', as: 'zord'
   post 'zords', to: 'zords#create'
   patch 'zords/:id', to: 'zords#update'
+  delete 'zords/:id', to: 'zords#destroy'
 
   # Devise routes for user sign-in, sign-up, sign-out, etc.
   devise_for :users
