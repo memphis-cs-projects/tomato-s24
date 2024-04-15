@@ -41,6 +41,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_14_212653) do
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
+
   create_table "cart_items", force: :cascade do |t|
     t.bigint "cart_id", null: false
     t.bigint "zord_id", null: false
