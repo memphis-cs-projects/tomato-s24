@@ -14,6 +14,9 @@ Rails.application.routes.draw do
   patch 'zords/:id', to: 'zords#update'
   delete 'zords/:id', to: 'zords#destroy'
 
+  get 'cart', to: 'cart#index', as: 'cart'
+  post 'zords/:id/add_to_cart', to: 'cart#add_to_cart', as: 'add_to_cart'
+
   # Devise routes for user sign-in, sign-up, sign-out, etc.
   devise_for :users
 
