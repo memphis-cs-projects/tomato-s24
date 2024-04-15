@@ -2,9 +2,7 @@ class CartController < ApplicationController
 
   def add_to_cart
     # Find the zord based on the params
-    zord = Zord.find(params[:zord_id])
-
-    flash[:success] = "Line 7"
+    zord = Zord.find(params[:id])
 
     # Find or create the user's cart
     cart = current_user.cart || current_user.create_cart
