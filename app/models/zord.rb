@@ -25,7 +25,7 @@ class Zord < ApplicationRecord
   validates :description, presence: true
   validates :price, presence: true
   validates :figure_image, presence: false, allow_blank: true
-
+  validates :capacity, numericality: { greater_than: 0}
 
   def self.ransackable_attributes(auth_object = nil)
     ["name", "description", "material", "theme", "ability" ]
@@ -33,6 +33,14 @@ class Zord < ApplicationRecord
 
   def self.ransackable_associations(auth_object = nil)
     []
+  end
+
+  def self.available_materials
+    pluck(:material).uniq
+  end
+
+  def self.available_themes
+    pluck(:theme).uniq
   end
 
 end
