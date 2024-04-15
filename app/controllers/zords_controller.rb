@@ -26,7 +26,7 @@ class ZordsController < ApplicationController
 
   def create
     if current_user.vendor?
-      @zord = Zord.new(params.require(:zord).permit(:name, :description, :price, :figure_image, :ability, :capacity, :quantity, :theme))
+      @zord = Zord.new(params.require(:zord).permit(:name, :description, :material, :price, :figure_image, :ability, :capacity, :quantity, :theme))
       if @zord.save
         flash[:success] = 'Hurray Zord was successfully added!'
         redirect_to zords_url
@@ -46,7 +46,7 @@ class ZordsController < ApplicationController
 
   def update
     @zord = Zord.find(params[:id])
-    if @zord.update(params.require(:zord).permit(:name, :description, :price, :figure_image, :ability, :capacity, :quantity, :theme))
+    if @zord.update(params.require(:zord).permit(:name, :description, :price, :material, :figure_image, :ability, :capacity, :quantity, :theme))
       flash[:success] = 'Zord was successfully updated!'
       redirect_to zord_url(@zord)
     else

@@ -12,26 +12,18 @@
     </div>
   <% end %>
 
-  <%= f.select :material, Request::MATERIAL_OPTIONS, { disabled: ['select'] }, { prompt: 'Select Material' } %>
+  <!--<%= f.select :material, Request::MATERIAL_OPTIONS, { disabled: ['select'] }, { prompt: 'Select Material' } %>-->
 
-  <div class="row">
-  <label class="col-form-label">Ability</label>
-  <% Request::ABILITY_OPTIONS.each do |ability_option| %>
-    <div class="col-auto">
-      <%= f.radio_button :ability, ability_option.last %>
-    </div>
-  <% end %>
-</div>
-  <%= f.select :theme, Request::THEME_OPTIONS , { disabled: ['select'] }, { prompt: 'Select Material' } %>
+  <div>
+      <!--<%= f.label :material, "Material" %>-->
+      <%= f.select :material, options_for_select(Zord.available_materials.map { |m| [m, m] }), { include_blank: true } %>
+  </div>
 
-  <div class="row">
-  <label class="col-form-label">Capacity</label>
-  <% Request::CAPACITY_OPTIONS.each do |capacity_option| %>
-    <div class="col-auto">
-      <%= f.radio_button :capacity, capacity_option.last %>
-    </div>
-  <% end %>
+<%= f.text_field :ability, label: "Ability" %>
 </div>
+  <!--<%= f.select :theme, Request::THEME_OPTIONS , { disabled: ['select'] }, { prompt: 'Select Material' } %>-->
+  <%= f.select :theme, options_for_select(Zord.available_themes.map { |m| [m, m] }), { include_blank: true } %>
+  <%= f.number_field :capacity, label: "Capacity" %>
   <%= f.submit 'Create Request'%>
  
 <% end %>

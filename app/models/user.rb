@@ -20,6 +20,13 @@
 class User < ApplicationRecord
 
   has_one :cart
+  has_many(
+    :requests,
+    class_name: 'Request',
+    foreign_key: 'user_id',
+    inverse_of: :user,
+    dependent: :destroy
+  )
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
