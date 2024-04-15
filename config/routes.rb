@@ -17,6 +17,7 @@ Rails.application.routes.draw do
 
   get 'cart', to: 'cart#index', as: 'cart'
   post 'zords/:id/add_to_cart', to: 'cart#add_to_cart', as: 'add_to_cart'
+  delete 'cart_items/:id/remove_from_cart', to: 'cart#remove_from_cart', as: 'remove_from_cart'
 
 
  get:'requests', to:'requests#all_requests', as:'requests_all_requests'
