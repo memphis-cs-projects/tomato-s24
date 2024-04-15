@@ -87,19 +87,22 @@ Request.create!(
   material:  'Vibranium',
   theme: 'Marvel',
   ability: 'Elemental Powers',
-  capacity:  5
+  capacity:  5,
+  user: user1
 )
 
 Request.create!(
   material:  'Kryptonite',
   theme: 'Bahubali',
   ability: 'Invisibility',
-  capacity:  20
+  capacity:  20,
+  user: user1
 )
 
 Request.create!(
   material:  'Platinum',
   theme: 'Avatar',
   ability: 'Teleportation',
-  capacity:  1
+  capacity:  1,
+  user: user1
 )

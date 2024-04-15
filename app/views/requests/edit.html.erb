@@ -1,0 +1,27 @@
+Edit.html.erb
+
+<h1>Edit Request</h1>
+ 
+<%= bootstrap_form_with model: @request, url: request_path(@request), method: :patch, data: { turbo: false } do |f| %>
+ <% if @request.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@request.errors.count, "error") %> prohibited this request from being saved:</h2>
+      <ul>
+        <% @request.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <div>
+      <!--<%= f.label :material, "Material" %>-->
+      <%= f.select :material, options_for_select(Zord.available_materials.map { |m| [m, m] },  @request.material), { include_blank: false } %>
+  </div>
+
+<%= f.text_field :ability, label: "Ability" %>
+<%= f.select :theme, options_for_select(Zord.available_themes.map { |m| [m, m] },  @request.theme), { include_blank: false } %>
+  <%= f.number_field :capacity, label: "Capacity" %>
+</div>
+    <%= f.submit 'Update Request'%>
+<% end %>

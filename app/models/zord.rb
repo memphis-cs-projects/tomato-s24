@@ -24,7 +24,7 @@ class Zord < ApplicationRecord
   validates :description, presence: true
   validates :price, presence: true
   validates :figure_image, presence: false, allow_blank: true
-
+  validates :capacity, numericality: { greater_than: 0}
 
   def self.ransackable_attributes(auth_object = nil)
     ["name", "description", "material", "theme", "ability" ]
