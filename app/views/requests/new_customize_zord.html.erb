@@ -1,0 +1,37 @@
+
+<h1>Create New Request </h1>
+ 
+<%= bootstrap_form_with model: @request, url: requests_all_requests_path, method: :post, data: { turbo: false } do |f| %>
+  <% if @request.errors.any? %>
+    <div id="error_explanation">
+      <ul>
+        <% @request.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.select :material, Request::MATERIAL_OPTIONS, { disabled: ['select'] }, { prompt: 'Select Material' } %>
+
+  <div class="row">
+  <label class="col-form-label">Ability</label>
+  <% Request::ABILITY_OPTIONS.each do |ability_option| %>
+    <div class="col-auto">
+      <%= f.radio_button :ability, ability_option.last %>
+    </div>
+  <% end %>
+</div>
+  <%= f.select :theme, Request::THEME_OPTIONS , { disabled: ['select'] }, { prompt: 'Select Material' } %>
+
+  <div class="row">
+  <label class="col-form-label">Capacity</label>
+  <% Request::CAPACITY_OPTIONS.each do |capacity_option| %>
+    <div class="col-auto">
+      <%= f.radio_button :capacity, capacity_option.last %>
+    </div>
+  <% end %>
+</div>
+  <%= f.submit 'Create Request'%>
+ 
+<% end %>

@@ -1,0 +1,34 @@
+<h1>Available Zord Items</h1>
+ 
+<table class="table table-hover">
+ 
+  <thead class="table-dark">
+    <tr>
+      <th>Material</th>
+      <th>Theme</th>
+      <th>Ability</th>
+      <th>Capacity</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+ 
+  <tbody>
+    <% @requests.each do |request| %>
+      <tr>
+        <td><%= request.material %></td>
+        <td><%= request.theme %></td>
+        <td><%= request.ability %></td>
+        <td><%= request.capacity %></td>
+        <td><%= link_to "Show", request_path(request) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+ </table>
+ <p>
+  <%= link_to "Create New Request", request_customize_zord_path, class: 'btn btn-primary' %>
+  </p>
+
+
+

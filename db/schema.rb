@@ -41,7 +41,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_14_212653) do
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
-
   create_table "cart_items", force: :cascade do |t|
     t.bigint "cart_id", null: false
     t.bigint "zord_id", null: false
@@ -57,6 +56,21 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_14_212653) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_carts_on_user_id"
+  end
+
+  create_table "requests", force: :cascade do |t|
+    t.string "name"
+    t.string "type"
+    t.string "description"
+    t.string "status"
+    t.string "theme"
+    t.string "material"
+    t.integer "capacity"
+    t.string "ability"
+    t.integer "price"
+    t.string "messsage"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
