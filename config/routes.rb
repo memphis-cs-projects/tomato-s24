@@ -13,6 +13,10 @@ Rails.application.routes.draw do
   get 'zords/:id', to: 'zords#show', as: 'zord'
   post 'zords', to: 'zords#create'
   patch 'zords/:id', to: 'zords#update'
+  delete 'zords/:id', to: 'zords#destroy'
+
+  get 'cart', to: 'cart#index', as: 'cart'
+  post 'zords/:id/add_to_cart', to: 'cart#add_to_cart', as: 'add_to_cart'
 
 
  get:'requests', to:'requests#all_requests', as:'requests_all_requests'

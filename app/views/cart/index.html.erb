@@ -1,0 +1,47 @@
+<h1>Shopping Cart</h1>
+
+<% if @cart_items.present? %>
+<div class="row mb-4">
+  <% total_price = 0 %>
+  <% @cart_items.each do |item| %>
+    <% if item.zord.figure_image.attached? %>          
+      <div class="col-md-3 mb-1 mt-1">
+        <%= image_tag item.zord.figure_image, class: "img-fluid rounded", style: "width: 200px; height: 200px; object-fit: cover;" %>
+      </div>
+    <% end %>
+
+    <div class="col-md-6 mb-1 mt-1">
+      <div class="card-body">
+        <h5 class="card-title"><%= item.zord.name %></h5>
+        <p class="card-text mb-1">Price: <%= number_to_currency(item.zord.price) %></p>
+        <p class="card-text mb-1"><strong>Material: </strong><%= item.zord.material %></p>
+        <p class="card-text mb-1"><strong>Theme: </strong><%= item.zord.theme %></p>
+        <p class="card-text mb-1"><strong>Description: </strong><%= item.zord.description %></p>
+      </div>
+    </div>
+    
+    <div class="col-md-3 mb-1 mt-1">
+        <p class="card-text mb-1"><strong>Quantity: </strong><%= item.quantity %></p>
+        <% if current_user && !current_user.vendor? %>
+          <%= button_to "Remove from Cart", cart_path, method: :post, class: "btn btn-danger" %>
+        <% end %>
+    </div>
+
+    <% total_price += item.zord.price * item.quantity %>
+  <% end %>
+</div>
+
+<%# Display total price %>
+<div class="row">
+  <div class="col-md-9 text-center">
+    <h3>Total Price: <%= number_to_currency(total_price) %></h3>
+  </div>
+  <div class="col-md-3 text-center">
+    <%= button_to "Proceed to Checkout>>", cart_path, method: :post, class: "btn btn-success" %>
+  </div>
+</div>
+<%else%>
+<div class="text-center">
+    <h3>No items in the cart</h3>
+  </div>
+<% end %>

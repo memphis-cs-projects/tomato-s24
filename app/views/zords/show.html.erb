@@ -34,7 +34,7 @@
 
 <% if current_user && !current_user.vendor? %>
     <div class = "mt-1">
-        <%= link_to "Add to Cart", zords_path, class: "btn btn-success" %>
+        <%= button_to "Add to Cart", add_to_cart_path(@zord),method: :post, class: "btn btn-success" %>
     </div>
 <% end %>
 

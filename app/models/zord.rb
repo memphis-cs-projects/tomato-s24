@@ -15,13 +15,15 @@
 #  updated_at  :datetime         not null
 #
 class Zord < ApplicationRecord
+  has_many :cart_items
+  has_many :carts, through: :cart_items
 
   has_one_attached :figure_image
 
   validates :name, presence: true
   validates :description, presence: true
   validates :price, presence: true
-  validates :figure_image, presence: true, allow_blank: true
+  validates :figure_image, presence: false, allow_blank: true
 
 
   def self.ransackable_attributes(auth_object = nil)
