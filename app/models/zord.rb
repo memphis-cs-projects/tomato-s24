@@ -34,4 +34,12 @@ class Zord < ApplicationRecord
     []
   end
 
+  def self.available_materials
+    pluck(:material).uniq
+  end
+
+  def self.available_themes
+    pluck(:theme).uniq
+  end
+
 end
