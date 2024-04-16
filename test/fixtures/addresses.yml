@@ -1,0 +1,24 @@
+# == Schema Information
+#
+# Table name: addresses
+#
+#  id             :bigint           not null, primary key
+#  city           :string
+#  state          :string
+#  street_address :string
+#  zipcode        :integer
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#
+
+one:
+  street_address: MyString
+  city: MyString
+  state: MyString
+  zipcode: 1
+
+two:
+  street_address: MyString
+  city: MyString
+  state: MyString
+  zipcode: 1

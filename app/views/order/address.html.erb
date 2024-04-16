@@ -1,0 +1,31 @@
+<h1>Order Checkout</h1>
+
+<h3>Address Information</h3>
+<div id="address-section" class="container">
+  <%= bootstrap_form_with model: @address, url: create_address_path, method: :post, data: { turbo: false } do |f| %>
+    <div class="mb-3">
+      <%= f.text_field :street_address, class: "form-control", required: true %>
+      <div class="invalid-feedback">Please enter your street address.</div>
+    </div>
+
+    <div class="mb-3">
+      <%= f.text_field :city, class: "form-control", required: true %>
+      <div class="invalid-feedback">Please enter your city.</div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <%= f.text_field :state, class: "form-control", required: true %>
+        <div class="invalid-feedback">Please provide a valid state.</div>
+      </div>
+
+      <div class="col-md-6 mb-3">
+        <%= f.text_field :zipcode, class: "form-control", required: true, pattern: "[0-9]*" %>
+        <div class="invalid-feedback">Please provide a valid zipcode.</div>
+      </div>
+    </div>
+
+    <!-- Button to submit the form -->
+    <%= f.submit "Continue to Payment", class: "btn btn-primary" %>
+  <% end %>
+</div>

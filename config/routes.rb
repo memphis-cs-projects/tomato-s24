@@ -19,6 +19,12 @@ Rails.application.routes.draw do
   post 'zords/:id/add_to_cart', to: 'cart#add_to_cart', as: 'add_to_cart'
   delete 'cart_items/:id/remove_from_cart', to: 'cart#remove_from_cart', as: 'remove_from_cart'
 
+  get 'order/add_address', to: 'order#add_address', as: 'add_address'
+  post 'create_address', to: 'order#create_address', as:'create_address'
+  get 'order/add_payment', to: 'order#add_payment', as: 'add_payment'
+  post 'create_payment', to: 'order#create_payment', as:'create_payment'
+
+
 
  get:'requests', to:'requests#all_requests', as:'requests_all_requests'
  get:'requests/new_customize_zord', to:'requests#new_customize_zord', as:'request_customize_zord'
