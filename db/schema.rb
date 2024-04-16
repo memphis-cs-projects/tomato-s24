@@ -68,7 +68,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_15_210803) do
     t.index ["user_id"], name: "index_carts_on_user_id"
   end
 
-<<<<<<< HEAD
   create_table "orders", force: :cascade do |t|
     t.string "status"
     t.bigint "address_id", null: false
@@ -89,7 +88,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_15_210803) do
     t.date "expiry_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-=======
+  end
+
   create_table "requests", force: :cascade do |t|
     t.string "name"
     t.string "type"
@@ -105,7 +105,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_15_210803) do
     t.datetime "updated_at", null: false
     t.bigint "user_id"
     t.index ["user_id"], name: "index_requests_on_user_id"
->>>>>>> 97d3464471a96ccbb15badcfe9365daeb3c68a2a
   end
 
   create_table "users", force: :cascade do |t|
@@ -139,12 +138,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_15_210803) do
   add_foreign_key "cart_items", "carts"
   add_foreign_key "cart_items", "zords"
   add_foreign_key "carts", "users"
-<<<<<<< HEAD
   add_foreign_key "orders", "addresses"
   add_foreign_key "orders", "payments"
   add_foreign_key "orders", "users"
   add_foreign_key "orders", "zords"
-=======
   add_foreign_key "requests", "users"
->>>>>>> 97d3464471a96ccbb15badcfe9365daeb3c68a2a
 end
