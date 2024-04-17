@@ -82,6 +82,20 @@ zord4 = Zord.create!(
 zord4.figure_image.attach(io: File.open(Rails.root.join('app/assets/images/zord4.jpg')),
 filename: 'zord4.jpg')
 
+zord5 = Zord.create!(
+  name: "Limited Edition",
+  theme: "Theme 1",
+  material: "Material 2",
+  capacity: 15,
+  ability: "Ability 2",
+  price: 170,
+  description: "Description for Limited Edition",
+  quantity: 1,
+  limited: true
+)
+
+zord5.figure_image.attach(io: File.open(Rails.root.join('app/assets/images/zord2.jpeg')),
+filename: 'zord2.jpeg')
 
 Request.create!(
   material:  'Vibranium',

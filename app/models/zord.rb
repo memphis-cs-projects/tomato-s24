@@ -6,6 +6,7 @@
 #  ability     :string
 #  capacity    :integer
 #  description :text
+#  limited     :boolean          default(FALSE)
 #  material    :string
 #  name        :string
 #  price       :decimal(, )
@@ -18,6 +19,8 @@ class Zord < ApplicationRecord
   has_many :cart_items
   has_many :carts, through: :cart_items
   has_many :orders
+
+  has_one :bid, dependent:   :destroy
 
   has_one_attached :figure_image
 
