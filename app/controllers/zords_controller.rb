@@ -1,9 +1,13 @@
 class ZordsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :require_vendor, only: [:new, :create, :edit, :update, :destroy]
+  before_action :require_vendor, only: [:new, :create, :edit, :update, :destroy, :new_limited]
 
   def index
-    @q = Zord.ransack(params[:q] || {})
+    if current_user && current_user.vendor?
+      @q = Zord.ransack(params[:q] || {})
+    else
+      @q = Zord.where(limited: false).ransack(params[:q] || {})
+    end
     @zords = @q.result(distinct: true)
     @zords = params[:q] && params[:q][:s].present? ? @zords.order(params[:q][:s]) : @zords.order(:id)
     render :index
@@ -24,12 +28,28 @@ class ZordsController < ApplicationController
     end
   end
 
+  def new_limited
+    if current_user.vendor?
+      @zord = Zord.new
+      render :new_limited
+    else
+      redirect_to zords_path, alert: "Only vendors can add new zords."
+    end
+  end
+
   def create
     if current_user.vendor?
-      @zord = Zord.new(params.require(:zord).permit(:name, :description, :material, :price, :figure_image, :ability, :capacity, :quantity, :theme))
+      @zord = Zord.new(params.require(:zord).permit(:name, :description,:limited, :material, :price, :figure_image, :ability, :capacity, :quantity, :theme))
+
       if @zord.save
-        flash[:success] = 'Hurray Zord was successfully added!'
-        redirect_to zords_url
+
+        if @zord.limited
+          flash[:success] = 'Hurray Limited edition Zord was successfully added!'
+          redirect_to new_bid_path(zord_id: @zord.id)
+        else
+          flash[:success] = 'Hurray Zord was successfully added!'
+          redirect_to zords_url
+        end
       else
         flash.now[:error] = 'Oops Zord creation failed'
         render :new, status: :unprocessable_entity

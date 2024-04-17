@@ -1,0 +1,39 @@
+<h1>All Bids</h1>
+ <p>
+  <%= link_to "Add Limited edition Zord", new_limited_path, class: 'btn btn-primary' %>
+  </p>
+<table class="table table-hover">
+ 
+  <thead class="table-dark">
+    <tr>
+      <th>Zord Name</th>
+      <th>Start date</th>
+      <th>End date</th>
+      <th>Base price</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+ 
+  <tbody>
+    <% @bids.each do |bid| %>
+      <tr>
+        <td><%= bid.zord.name %></td>
+        <td><%= bid.start_date %></td>
+        <td><%= bid.end_date %></td>
+        <td><%= number_to_currency(bid.base_price)%></td>
+        <%if current_user && current_user.vendor?%>
+            <td><%= link_to "Show", zord_path(bid.zord) %></td>
+            <td><%= button_to "Delete", bid_path(bid), method: :delete, data: { turbo: false }, class: "btn btn-sm btn-danger" %></td>
+        <%else%>
+            <td><%= button_to "Add or update Bid", add_to_cart_path(bid.zord), method: :post, class: "btn btn-success" %></td>
+        <%end%>
+      </tr>
+    <% end %>
+  </tbody>
+ </table>
+ 
+
+
+
