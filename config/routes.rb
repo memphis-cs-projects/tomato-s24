@@ -22,6 +22,10 @@ Rails.application.routes.draw do
   get 'bids/:zord_id/new_bid', to:'bids#add_bid', as: 'new_bid'
   post 'bids/:zord_id', to:'bids#create_bid', as: 'create_bid'
   delete 'bids/:bid_id', to: 'bids#destroy', as: 'bid'
+  get 'bids/:bid_id', to: 'bids#show_zord_bid', as: 'show_zord_bid'
+  post 'bids/register/:bid_id', to:'bids#create_registration', as: 'register'
+  delete 'bids/registration/:bid_id', to: 'bids#destroy_registration', as: 'destroy_registration'
+
 
 
   get 'cart', to: 'cart#index', as: 'cart'

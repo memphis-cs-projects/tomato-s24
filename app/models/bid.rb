@@ -21,6 +21,11 @@
 class Bid < ApplicationRecord
   belongs_to :zord
 
+  has_many :user_registrations
+  has_many :users, through: :user_registrations, source: :user
+
+
+
   validates :start_date, presence: true
   validates :end_date, presence: true
   validates :base_price, presence: true

@@ -29,6 +29,11 @@ class User < ApplicationRecord
     dependent: :destroy
   )
 
+  has_many :user_registrations
+  has_many :bids, through: :user_registrations, source: :bid
+
+
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
