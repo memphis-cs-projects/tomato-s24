@@ -83,7 +83,7 @@ zord4.figure_image.attach(io: File.open(Rails.root.join('app/assets/images/zord4
 filename: 'zord4.jpg')
 
 zord5 = Zord.create!(
-  name: "Limited Edition",
+  name: "Limited Edition1",
   theme: "Theme 1",
   material: "Material 2",
   capacity: 15,
@@ -96,6 +96,35 @@ zord5 = Zord.create!(
 
 zord5.figure_image.attach(io: File.open(Rails.root.join('app/assets/images/zord2.jpeg')),
 filename: 'zord2.jpeg')
+
+zord6 = Zord.create!(
+  name: "Limited Edition2",
+  theme: "Theme 1",
+  material: "Material 2",
+  capacity: 15,
+  ability: "Ability 2",
+  price: 170,
+  description: "Description for Limited Edition",
+  quantity: 1,
+  limited: true
+)
+
+zord6.figure_image.attach(io: File.open(Rails.root.join('app/assets/images/zord2.jpeg')),
+filename: 'zord4.jpg')
+
+bid1 = Bid.create!(
+  zord: zord5,
+  start_date: '2024-04-17',
+  end_date: '2024-04-20',
+  base_price: 170
+)
+
+bid2 = Bid.create!(
+  zord: zord6,
+  start_date: '2024-04-17',
+  end_date: '2024-04-20',
+  base_price: 170
+)
 
 Request.create!(
   material:  'Vibranium',
@@ -119,4 +148,16 @@ Request.create!(
   ability: 'Teleportation',
   capacity:  1,
   user: user1
+)
+
+user_registration1 = UserRegistration.create!(
+  user: user1,
+  bid: bid1,
+  bid_value: 180
+)
+
+user_registration2 = UserRegistration.create!(
+  user: user2,
+  bid: bid1,
+  bid_value: 190
 )
