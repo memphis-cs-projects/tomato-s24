@@ -28,12 +28,16 @@ class User < ApplicationRecord
     inverse_of: :user,
     dependent: :destroy
   )
-
   has_many :user_registrations
   has_many :bids, through: :user_registrations, source: :bid
 
-
-
+  has_many(
+    :notifications,
+    class_name: 'Notification',
+    foreign_key: 'user_id',
+    inverse_of: :user,
+    dependent: :destroy
+  )
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,

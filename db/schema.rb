@@ -78,6 +78,17 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_18_030231) do
     t.index ["user_id"], name: "index_carts_on_user_id"
   end
 
+  create_table "notifications", force: :cascade do |t|
+    t.string "subject"
+    t.string "message"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.bigint "request_id"
+    t.index ["request_id"], name: "index_notifications_on_request_id"
+    t.index ["user_id"], name: "index_notifications_on_user_id"
+  end
+
   create_table "orders", force: :cascade do |t|
     t.string "status"
     t.bigint "address_id", null: false
@@ -160,6 +171,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_18_030231) do
   add_foreign_key "cart_items", "carts"
   add_foreign_key "cart_items", "zords"
   add_foreign_key "carts", "users"
+  add_foreign_key "notifications", "requests"
+  add_foreign_key "notifications", "users"
   add_foreign_key "orders", "addresses"
   add_foreign_key "orders", "payments"
   add_foreign_key "orders", "users"

@@ -1,0 +1,27 @@
+<h1><%= @request.material %></h1>
+ 
+<p>
+  Material: <%= @request.material %>
+</p>
+ 
+<p>
+  Theme: <%= @request.theme %>
+</p>
+
+<p>
+    Ability: <%= @request.ability%>
+</p>
+
+<p>
+  Capacity: <%= @request.capacity%>
+</p>
+
+<p>
+    <%= link_to "Home", requests_all_requests_path, class: 'btn btn-primary'%>
+</p>
+
+<%= bootstrap_form_with model: @request, url: reject_request_path(@request), method: :patch, data: { turbo: false } do |f| %>
+
+    <%=f.text_field :message, label: "Message" %>
+    <%= f.submit %>
+<% end %>

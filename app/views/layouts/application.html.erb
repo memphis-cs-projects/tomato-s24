@@ -28,7 +28,7 @@
             <% if user_signed_in? %>
               <% if current_user.vendor?%>
                 <li class="nav-item">
-                  <%= link_to "Requests", request_customize_zord_path, class: "nav-link" %>
+                  <%= link_to "Requests", requests_vendor_requests_path, class: "nav-link" %>
                 </li>
                 <li class="nav-item">
                   <%= link_to "Bids", all_bids_path, class: "nav-link" %>
@@ -51,6 +51,9 @@
                 </li>
                 <li class="nav-item">
                   <%= link_to "Cart", cart_path, class: "nav-link" %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to "Notifications", all_notifications_path, class: "nav-link" %>
                 </li>
               <% end %>
             <% end %>

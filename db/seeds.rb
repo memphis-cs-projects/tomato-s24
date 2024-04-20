@@ -126,31 +126,33 @@ bid2 = Bid.create!(
   base_price: 300
 )
 
-Request.create!(
+request1= Request.create!(
   material:  'Vibranium',
   theme: 'Marvel',
   ability: 'Elemental Powers',
   capacity:  5,
+  status: 'Pending',
   user: user1
 )
 
-Request.create!(
+request2 = Request.create!(
   material:  'Kryptonite',
   theme: 'Bahubali',
   ability: 'Invisibility',
   capacity:  20,
-  user: user1
+  status: 'Pending',
+  user: user2
 )
 
-Request.create!(
+request3 =Request.create!(
   material:  'Platinum',
   theme: 'Avatar',
   ability: 'Teleportation',
   capacity:  1,
+  status: 'Pending',
   user: user1
 )
-
-user_registration1 = UserRegistration.create!(
+ser_registration1 = UserRegistration.create!(
   user: user1,
   bid: bid1,
   bid_value: 180
@@ -160,4 +162,11 @@ user_registration2 = UserRegistration.create!(
   user: user2,
   bid: bid1,
   bid_value: 190
+)
+
+Notification.create!(
+  subject: 'Message from Vendor',
+  message: 'Welcome Message',
+  request: request2,
+  user: user2
 )

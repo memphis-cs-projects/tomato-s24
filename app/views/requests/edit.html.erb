@@ -22,6 +22,9 @@ Edit.html.erb
 <%= f.text_field :ability, label: "Ability" %>
 <%= f.select :theme, options_for_select(Zord.available_themes.map { |m| [m, m] },  @request.theme), { include_blank: false } %>
   <%= f.number_field :capacity, label: "Capacity" %>
+  <p>
+  Status: <%= @request.status%>
+</p>
 </div>
     <%= f.submit 'Update Request'%>
 <% end %>
