@@ -61,7 +61,7 @@ class RequestsController < ApplicationController
 
   def decision_approval_request
     @request = Request.find(params[:id])
-    @zord = Zord.new(params.require(:request).permit(:price, :description, :name))
+    @zord = Zord.new(params.require(:request).permit(:price, :description, :name, :figure_image))
     @notification = Notification.new(params.require(:request).permit(:message))
     @notification.user = @request.user
     @notification.subject = "Vendor's Reply about your Request"  + @request.id.to_s
@@ -104,7 +104,7 @@ class RequestsController < ApplicationController
       @request.reload
       @request.status = 'Rejected'
       @request.save
-      redirect_to all_notifications_path
+      redirect_to requests_vendor_requests_path
     else
       flash.now[:error] = @notification.errors.full_messages.join(', ')
       render :reject, status: :unprocessable_entity
