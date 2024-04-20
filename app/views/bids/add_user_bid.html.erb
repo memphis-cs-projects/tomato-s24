@@ -17,27 +17,15 @@
   </div>  
   <div class="col-md-4" >
     <br><br><br><br>
-    <%if current_user && !current_user.vendor?%>
-      
-      <%= button_to "Register", register_path(@bid), method: :post, class: "btn btn-success" %>
-    <%else%>
-      <h5>User Biddings</h5>
-      <table class="table table-hover">
-        <thead class="table-dark">
-          <tr>
-            <th>User</th>
-            <th>Bid Value</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @user_registrations.each do |registration| %>
-            <tr>
-              <td><%= registration.user.email %></td>
-              <td><%= registration.bid_value %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    <%end%>
+    <p><strong>Your Bid:</strong> <%= number_to_currency(@currentBid.bid_value) %></p>
+    <%= bootstrap_form_with model: @currentBid, url: update_bid_path(bid_id: @currentBid.bid.id), method: :post, data: { turbo: false } do |form| %>
+      <div class="mb-3">
+        <%= form.number_field :bid_value,label:"Update bid to", class: "form-control" %>
+      </div>
+
+      <%= form.submit "Update Bid Value", class: "btn btn-primary" %>
+    <% end %>
+
+
   </div>
 </div>

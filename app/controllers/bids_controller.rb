@@ -49,6 +49,7 @@ class BidsController < ApplicationController
 
   def show_zord_bid
     @bid = Bid.find(params[:bid_id]  )
+    @user_registrations = UserRegistration.where(bid: @bid).order(bid_value: :desc)
     render :show_zord_bid
   end
 
@@ -66,6 +67,30 @@ class BidsController < ApplicationController
     @zord.destroy
     flash[:success] = "Bid Successfully deleted along with Zord"
     redirect_to all_bids_path
+  end
+
+  def add_user_bid
+    @bid = Bid.find(params[:bid_id])
+    @currentBid = UserRegistration.find_by(user:current_user,bid:@bid)
+    render :add_user_bid
+  end
+
+  def update_bid
+    @bid = Bid.find(params[:bid_id])
+    @currentBid = UserRegistration.find_by(user:current_user,bid:@bid)
+    updated_bid =  params[:user_registration][:bid_value].to_i
+    if updated_bid > @bid.base_price
+      if  @currentBid.bid_value < updated_bid && @currentBid.update(bid_value: updated_bid)
+        flash[:success] = "Bid value updated successfully"
+        redirect_to all_bids_path
+      else
+        flash[:error] = "Bid value is less than your previous bid"
+        render :add_user_bid
+      end
+    else
+      flash[:error] = "Bid value is less than Base Price"
+      render :add_user_bid
+    end
   end
 
   def require_vendor

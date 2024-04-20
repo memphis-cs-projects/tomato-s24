@@ -24,6 +24,8 @@ Rails.application.routes.draw do
   delete 'bids/:bid_id', to: 'bids#destroy', as: 'bid'
   get 'bids/:bid_id', to: 'bids#show_zord_bid', as: 'show_zord_bid'
   post 'bids/register/:bid_id', to:'bids#create_registration', as: 'register'
+  get 'bids/:bid_id/addBid', to: 'bids#add_user_bid', as: 'add_user_bid'
+  post 'bids/:bid_id/UpdateBid', to:'bids#update_bid', as: 'update_bid'
   delete 'bids/registration/:bid_id', to: 'bids#destroy_registration', as: 'destroy_registration'
 
 

@@ -19,16 +19,16 @@
 
   <div class="col-md-4">
     <%= bootstrap_form_with model: @bid, url: create_bid_path(zord_id: @zord.id), method: :post, data: { turbo: false } do |form| %>
-        <%= form.hidden_field :zord_id, value: @zord.id %>
-    <div class="mb-3">
+      <%= form.hidden_field :zord_id, value: @zord.id %>
+      <div class="mb-3">
         <%= form.date_field :start_date,label:"Start Date", class: "form-control" %>
-    </div>
+      </div>
 
-    <div class="mb-3">
+      <div class="mb-3">
         <%= form.date_field :end_date,label:"End Date", class: "form-control" %>
-    </div>
+      </div>
 
-    <%= form.submit "Create Bid", class: "btn btn-primary" %>
+      <%= form.submit "Create Bid", class: "btn btn-primary" %>
     <% end %>
   </div>
   

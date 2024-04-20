@@ -51,8 +51,15 @@
         <td><%= bid.start_date %></td>
         <td><%= bid.end_date %></td>
         <td><%= number_to_currency(bid.base_price)%></td>
-        <td><%= button_to "Add or update Bid", add_to_cart_path(bid.zord), method: :post, class: "btn btn-success" %></td>
+        <td><%= link_to "Add or update Bid", add_user_bid_path(bid), class: "btn btn-success" %></td>
         <td><%= button_to "Deregister", destroy_registration_path(bid), method: :delete, data: { turbo: false }, class: "btn btn-info" %></td>
+        <% if bid.start_date < Date.today && bid.end_date >= Date.today %>
+          <td>Bid is Live</td>
+        <% elsif bid.start_date > Date.today %>
+          <td>Bid is Upcoming</td>
+        <% elsif bid.end_date < Date.today %>
+          <td>Bid is Finished</td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
@@ -86,6 +93,13 @@
         <%else%>
             <td><%= link_to "Register for Bid", show_zord_bid_path(bid), class: "btn btn-primary" %></td>
         <%end%>
+        <% if bid.start_date < Date.today && bid.end_date >= Date.today %>
+          <td>Bid is Live</td>
+        <% elsif bid.start_date > Date.today %>
+          <td>Bid is Upcoming</td>
+        <% elsif bid.end_date < Date.today %>
+          <td>Bid is Finished</td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
