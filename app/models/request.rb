@@ -34,8 +34,10 @@ class Request < ApplicationRecord
     inverse_of: :requests
   )
 
-
-
+  has_one(
+  :notification,
+  dependent: :destroy)
+  attribute :status, :string, default: 'Pending'
   validates :material, presence: true
   MATERIAL_OPTIONS = [['select','select'],['Platinum', 'Platinum'], ['Kryptonite', 'Kryptonite'], ['Vibranium', 'Vibranium'], ['Silver', 'Silver'], ['Gold', 'Gold']]
   validates :ability, presence: true
@@ -45,11 +47,12 @@ class Request < ApplicationRecord
   validates :capacity, presence: true
   CAPACITY_OPTIONS = [['1','1'],['5','5'],['10','10'],['15','15'],['20','20']]
 
+
   validate :unique_combination, on: [:create, :update]
   private
 
   def unique_combination
-    existing_request = Request.find_by(material: material, theme: theme, ability: ability, capacity: capacity)
+    existing_request = Request.find_by(material: material, theme: theme, ability: ability, capacity: capacity, status: status)
     errors.add(:base, 'This combination Request already exists') if existing_request
   end
 end

@@ -83,26 +83,36 @@ zord4.figure_image.attach(io: File.open(Rails.root.join('app/assets/images/zord4
 filename: 'zord4.jpg')
 
 
-Request.create!(
+request1= Request.create!(
   material:  'Vibranium',
   theme: 'Marvel',
   ability: 'Elemental Powers',
   capacity:  5,
+  status: 'Pending',
   user: user1
 )
 
-Request.create!(
+request2 = Request.create!(
   material:  'Kryptonite',
   theme: 'Bahubali',
   ability: 'Invisibility',
   capacity:  20,
-  user: user1
+  status: 'Pending',
+  user: user2
 )
 
-Request.create!(
+request3 =Request.create!(
   material:  'Platinum',
   theme: 'Avatar',
   ability: 'Teleportation',
   capacity:  1,
+  status: 'Pending',
   user: user1
+)
+
+Notification.create!(
+  subject: 'Message from Vendor',
+  message: 'Welcome Message',
+  request: request2,
+  user: user2
 )
