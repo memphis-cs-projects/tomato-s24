@@ -20,6 +20,7 @@
 class User < ApplicationRecord
 
   has_one :cart
+  has_many :orders
   has_many(
     :requests,
     class_name: 'Request',
@@ -27,6 +28,8 @@ class User < ApplicationRecord
     inverse_of: :user,
     dependent: :destroy
   )
+  has_many :user_registrations
+  has_many :bids, through: :user_registrations, source: :bid
 
   has_many(
     :notifications,
@@ -35,7 +38,6 @@ class User < ApplicationRecord
     inverse_of: :user,
     dependent: :destroy
   )
-
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,

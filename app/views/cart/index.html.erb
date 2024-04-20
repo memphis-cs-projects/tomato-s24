@@ -22,8 +22,8 @@
     
     <div class="col-md-3 mb-1 mt-1">
         <p class="card-text mb-1"><strong>Quantity: </strong><%= item.quantity %></p>
-        <% if current_user && !current_user.vendor? %>
-          <%= button_to "Remove from Cart", cart_path, method: :post, class: "btn btn-danger" %>
+        <% if current_user %>
+          <%= button_to "Remove from Cart", remove_from_cart_path(item), method: :delete, class: "btn btn-danger" %>
         <% end %>
     </div>
 
@@ -37,7 +37,7 @@
     <h3>Total Price: <%= number_to_currency(total_price) %></h3>
   </div>
   <div class="col-md-3 text-center">
-    <%= button_to "Proceed to Checkout>>", cart_path, method: :post, class: "btn btn-success" %>
+    <%= link_to "Proceed to Checkout>>", add_address_path, class: "btn btn-success" %>
   </div>
 </div>
 <%else%>

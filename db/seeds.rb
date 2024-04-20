@@ -27,13 +27,13 @@ user3 = User.create!(
 
 
 zord1 = Zord.create!(
-  name: "Zord 1",
-  theme: "Theme 1",
-  material: "Material 1",
+  name: "Thunder Striker",
+  theme: "Thunderstorms",
+  material: "Titanium Alloy",
   capacity: 5,
-  ability: "Ability 1",
-  price: 49.99,
-  description: "Description for Zord 1",
+  ability: "Lightning Strike",
+  price: 50,
+  description: "A mighty MegaZord capable of summoning thunder and delivering devastating lightning strikes to its enemies.",
   quantity: 15
 )
 
@@ -41,13 +41,13 @@ zord1.figure_image.attach(io: File.open(Rails.root.join('app/assets/images/zord1
 filename: 'zord1.jpeg')
 
 zord2 = Zord.create!(
-  name: "Zord 2",
-  theme: "Theme 2",
-  material: "Material 2",
+  name: "Cosmic Guardian",
+  theme: "Celestial Guardians",
+  material: "Cosmic Energy Crystals",
   capacity: 8,
-  ability: "Ability 2",
-  price: 79.99,
-  description: "Description for Zord 2",
+  ability: "Cosmic Shield",
+  price: 80,
+  description: "An otherworldly MegaZord that safeguards the universe with its impenetrable cosmic shield, protecting all that is good from cosmic threats.",
   quantity: 10
 )
 
@@ -55,13 +55,13 @@ zord2.figure_image.attach(io: File.open(Rails.root.join('app/assets/images/zord2
 filename: 'zord2.jpeg')
 
 zord3 = Zord.create!(
-  name: "Zord 3",
-  theme: "Theme 2",
-  material: "Material 1",
+  name: "Shadow Blade",
+  theme: "Stealth Operations",
+  material: "Shadowsteel",
   capacity: 2,
-  ability: "Ability 4",
-  price: 29.99,
-  description: "Description for Zord 3",
+  ability: "Shadow Cloak",
+  price: 30,
+  description: "A sleek and stealthy MegaZord that moves through the shadows, striking swiftly with its razor-sharp blades to vanquish darkness wherever it lurks.",
   quantity: 15
 )
 
@@ -69,19 +69,62 @@ zord3.figure_image.attach(io: File.open(Rails.root.join('app/assets/images/zord3
 filename: 'zord3.jpg')
 
 zord4 = Zord.create!(
-  name: "Zord 4",
-  theme: "Theme 1",
-  material: "Material 2",
+  name: "Phoenix Fury",
+  theme: "Mythical Firebirds",
+  material: "Phoenix Feathers",
   capacity: 15,
-  ability: "Ability 2",
-  price: 69.99,
-  description: "Description for Zord 4",
+  ability: "Phoenix Rebirth",
+  price: 70,
+  description: "A fiery MegaZord embodying the legendary phoenix, capable of rising from its ashes and unleashing blazing fury upon its adversaries.",
   quantity: 5
 )
 
 zord4.figure_image.attach(io: File.open(Rails.root.join('app/assets/images/zord4.jpg')),
 filename: 'zord4.jpg')
 
+zord5 = Zord.create!(
+  name: "Galactic Goliath",
+  theme: "Intergalactic Titans",
+  material: "Cosmic Energy Crystals",
+  capacity: 15,
+  ability: "Galactic Slam",
+  price: 170,
+  description: "A colossal MegaZord of unparalleled might, traversing the galaxies and delivering earth-shaking slams that shake the very fabric of the cosmos.",
+  quantity: 1,
+  limited: true
+)
+
+zord5.figure_image.attach(io: File.open(Rails.root.join('app/assets/images/zord2.jpeg')),
+filename: 'zord2.jpeg')
+
+zord6 = Zord.create!(
+  name: "Nebula Nova",
+  theme: "Cosmic Nebulae",
+  material: " Nebula Essence",
+  capacity: 15,
+  ability: "Nebula Burst",
+  price: 300,
+  description: "A magnificent MegaZord hailing from the depths of space, harnessing the power of cosmic nebulae to create dazzling bursts of energy that dazzle and overwhelm its foes.",
+  quantity: 1,
+  limited: true
+)
+
+zord6.figure_image.attach(io: File.open(Rails.root.join('app/assets/images/zord2.jpeg')),
+filename: 'zord4.jpg')
+
+bid1 = Bid.create!(
+  zord: zord5,
+  start_date: '2024-04-17',
+  end_date: '2024-04-24',
+  base_price: 170
+)
+
+bid2 = Bid.create!(
+  zord: zord6,
+  start_date: '2024-04-25',
+  end_date: '2024-04-30',
+  base_price: 300
+)
 
 request1= Request.create!(
   material:  'Vibranium',
@@ -108,6 +151,17 @@ request3 =Request.create!(
   capacity:  1,
   status: 'Pending',
   user: user1
+)
+ser_registration1 = UserRegistration.create!(
+  user: user1,
+  bid: bid1,
+  bid_value: 180
+)
+
+user_registration2 = UserRegistration.create!(
+  user: user2,
+  bid: bid1,
+  bid_value: 190
 )
 
 Notification.create!(

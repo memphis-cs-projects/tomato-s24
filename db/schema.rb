@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_04_17_183535) do
+ActiveRecord::Schema[7.0].define(version: 2024_04_18_030231) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -42,6 +42,25 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_17_183535) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "addresses", force: :cascade do |t|
+    t.string "street_address"
+    t.string "city"
+    t.string "state"
+    t.integer "zipcode"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "bids", force: :cascade do |t|
+    t.date "start_date"
+    t.date "end_date"
+    t.bigint "zord_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.decimal "base_price"
+    t.index ["zord_id"], name: "index_bids_on_zord_id"
+  end
+
   create_table "cart_items", force: :cascade do |t|
     t.bigint "cart_id", null: false
     t.bigint "zord_id", null: false
@@ -57,6 +76,29 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_17_183535) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_carts_on_user_id"
+  end
+
+
+  create_table "orders", force: :cascade do |t|
+    t.string "status"
+    t.bigint "address_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "zord_id", null: false
+    t.bigint "payment_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["address_id"], name: "index_orders_on_address_id"
+    t.index ["payment_id"], name: "index_orders_on_payment_id"
+    t.index ["user_id"], name: "index_orders_on_user_id"
+    t.index ["zord_id"], name: "index_orders_on_zord_id"
+  end
+
+  create_table "payments", force: :cascade do |t|
+    t.string "card_type"
+    t.integer "card_number"
+    t.date "expiry_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "notifications", force: :cascade do |t|
@@ -87,6 +129,16 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_17_183535) do
     t.index ["user_id"], name: "index_requests_on_user_id"
   end
 
+  create_table "user_registrations", force: :cascade do |t|
+    t.bigint "bid_id", null: false
+    t.bigint "user_id", null: false
+    t.integer "bid_value", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["bid_id"], name: "index_user_registrations_on_bid_id"
+    t.index ["user_id"], name: "index_user_registrations_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -111,14 +163,24 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_17_183535) do
     t.integer "quantity"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "limited", default: false
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "bids", "zords"
   add_foreign_key "cart_items", "carts"
   add_foreign_key "cart_items", "zords"
   add_foreign_key "carts", "users"
+
+  add_foreign_key "orders", "addresses"
+  add_foreign_key "orders", "payments"
+  add_foreign_key "orders", "users"
+  add_foreign_key "orders", "zords"
   add_foreign_key "notifications", "requests"
   add_foreign_key "notifications", "users"
+
   add_foreign_key "requests", "users"
+  add_foreign_key "user_registrations", "bids"
+  add_foreign_key "user_registrations", "users"
 end

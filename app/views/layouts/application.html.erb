@@ -31,14 +31,20 @@
                   <%= link_to "Requests", requests_vendor_requests_path, class: "nav-link" %>
                 </li>
                 <li class="nav-item">
-                  <%= link_to "Add Limited Edition Zord", zords_path, class: "nav-link" %>
+                  <%= link_to "Bids", all_bids_path, class: "nav-link" %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to "Add Limited Edition Zord", new_limited_path, class: "nav-link" %>
                 </li>
                 <li class="nav-item">
                   <%= link_to "Manage Inventory", zords_path, class: "nav-link" %>
                 </li>
               <% else %>
                 <li class="nav-item">
-                  <%= link_to "Requests", requests_all_requests_path, class: "nav-link" %>
+                  <%= link_to "Customizations", requests_all_requests_path, class: "nav-link" %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to "Bids", all_bids_path, class: "nav-link" %>
                 </li>
                 <li class="nav-item">
                   <%= link_to "Orders", zords_path, class: "nav-link" %>

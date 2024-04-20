@@ -1,0 +1,110 @@
+<h1>Bids</h1>
+<% if current_user && current_user.vendor%>
+  <p>
+    <%= link_to "Add Limited edition Zord", new_limited_path, class: 'btn btn-primary' %>
+  </p>
+  <table class="table table-hover">
+  <thead class="table-dark">
+    <tr>
+      <th>Zord Name</th>
+      <th>Start date</th>
+      <th>End date</th>
+      <th>Base price</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+ 
+  <tbody>
+    <% @bids.each do |bid| %>
+      <tr>
+        <td><%= bid.zord.name %></td>
+        <td><%= bid.start_date %></td>
+        <td><%= bid.end_date %></td>
+        <td><%= number_to_currency(bid.base_price)%></td>
+        <td><%= link_to "Show", show_zord_bid_path(bid) %></td>
+        <td><%= button_to "Delete", bid_path(bid), method: :delete, data: { turbo: false }, class: "btn btn-sm btn-danger" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+ </table>
+<%else%>
+
+<h4>Bids registered</h4>
+<table class="table table-hover">
+  <thead class="table-dark">
+    <tr>
+      <th>Zord Name</th>
+      <th>Start date</th>
+      <th>End date</th>
+      <th>Base price</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead> 
+  <tbody>
+    <% @bids_registered.each do |bid| %>
+      <tr>
+        <td><%= bid.zord.name %></td>
+        <td><%= bid.start_date %></td>
+        <td><%= bid.end_date %></td>
+        <td><%= number_to_currency(bid.base_price)%></td>
+        <td><%= link_to "Add or update Bid", add_user_bid_path(bid), class: "btn btn-success" %></td>
+        <td><%= button_to "Deregister", destroy_registration_path(bid), method: :delete, data: { turbo: false }, class: "btn btn-info" %></td>
+        <% if bid.start_date < Date.today && bid.end_date >= Date.today %>
+          <td>Bid is Live</td>
+        <% elsif bid.start_date > Date.today %>
+          <td>Bid is Upcoming</td>
+        <% elsif bid.end_date < Date.today %>
+          <td>Bid is Finished</td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<br>
+<br>
+<h4>Bids Not registered</h4>
+<table class="table table-hover">
+  <thead class="table-dark">
+    <tr>
+      <th>Zord Name</th>
+      <th>Start date</th>
+      <th>End date</th>
+      <th>Base price</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+ 
+  <tbody>
+    <% @bids_not_registered.each do |bid| %>
+      <tr>
+        <td><%= bid.zord.name %></td>
+        <td><%= bid.start_date %></td>
+        <td><%= bid.end_date %></td>
+        <td><%= number_to_currency(bid.base_price)%></td>
+        <%if current_user && current_user.vendor?%>
+            <td><%= link_to "Show", show_zord_bid(bid) %></td>
+            <td><%= button_to "Delete", bid_path(bid), method: :delete, data: { turbo: false }, class: "btn btn-sm btn-danger" %></td>
+        <%else%>
+            <td><%= link_to "Register for Bid", show_zord_bid_path(bid), class: "btn btn-primary" %></td>
+        <%end%>
+        <% if bid.start_date < Date.today && bid.end_date >= Date.today %>
+          <td>Bid is Live</td>
+        <% elsif bid.start_date > Date.today %>
+          <td>Bid is Upcoming</td>
+        <% elsif bid.end_date < Date.today %>
+          <td>Bid is Finished</td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+ </table>
+ 
+<%end%>
+
+

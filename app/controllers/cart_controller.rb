@@ -1,4 +1,14 @@
 class CartController < ApplicationController
+  before_action :authenticate_user!
+
+  def index
+    @cart_items = []
+    cart = current_user.cart
+    if cart
+      @cart_items = cart.cart_items
+    end
+    render :index
+  end
 
   def add_to_cart
     # Find the zord based on the params
@@ -26,13 +36,15 @@ class CartController < ApplicationController
     end
   end
 
-  def index
-    @cart_items = []
-    cart = current_user.cart
-    if cart
-      @cart_items = cart.cart_items
+  def remove_from_cart
+    cart_item = CartItem.find(params[:id])
+    if cart_item.cart == current_user.cart
+      cart_item.destroy
+      flash[:success] = "zord has been removed from the cart."
+    else
+      flash[:error] = "You can't remove an zord"
     end
-    render :index
+    redirect_to cart_url 
   end
 
 end

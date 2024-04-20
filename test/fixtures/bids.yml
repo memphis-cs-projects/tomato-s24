@@ -1,0 +1,30 @@
+# == Schema Information
+#
+# Table name: bids
+#
+#  id         :bigint           not null, primary key
+#  base_price :decimal(, )
+#  end_date   :date
+#  start_date :date
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  zord_id    :bigint           not null
+#
+# Indexes
+#
+#  index_bids_on_zord_id  (zord_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (zord_id => zords.id)
+#
+
+one:
+  start_date: 2024-04-16
+  end_date: 2024-04-16
+  zord: one
+
+two:
+  start_date: 2024-04-16
+  end_date: 2024-04-16
+  zord: two

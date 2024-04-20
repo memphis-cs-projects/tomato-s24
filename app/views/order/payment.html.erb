@@ -1,0 +1,39 @@
+<h1>Order Checkout</h1>
+
+<h3>Payment Information</h3>
+<div id="payment-section" class="container">
+  <%= bootstrap_form_with model: @payment, url: create_payment_path, method: :post, data: { turbo: false } do |f| %>
+  <div class="mb-3">
+    <div class="mb-3 row">
+      <div class="col-md-4">
+        <%= f.label :card_type, "Card Type: ", class: "form-label" %>
+      </div>
+      <div class="col-md-4">
+        <%= f.radio_button :card_type, "credit_card", id: "credit-card-radio", required: true %>
+      </div>
+      <div class="col-md-4">
+        <%= f.radio_button :card_type, "debit_card", id: "debit-card-radio" %>
+      </div>
+    </div>
+    <div class="invalid-feedback">Please select your card type.</div>
+  </div>
+    
+
+  <div class="mb-3">
+    <%= f.text_field :card_number, class: "form-control", required: true, pattern: "[0-9]*"  %>
+    <div class="invalid-feedback">Please enter your card number.</div>
+  </div>
+
+  <div class="mb-3">
+    <%= f.text_field :expiry_date, class: "form-control", required: true, pattern: "[0-9]*" %>
+    <div class="invalid-feedback">Please enter your expiry date.</div>
+  </div>
+
+  <div class="mb-3">
+    <%= f.text_field :security_code, class: "form-control", required: true, pattern: "[0-9]*"  %>
+    <div class="invalid-feedback">Please enter your security code.</div>
+  </div>
+  <!-- Button to submit the form -->
+  <%= f.submit "Review Order", class: "btn btn-primary" %>
+  <% end %>
+</div>

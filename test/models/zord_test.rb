@@ -6,6 +6,7 @@
 #  ability     :string
 #  capacity    :integer
 #  description :text
+#  limited     :boolean          default(FALSE)
 #  material    :string
 #  name        :string
 #  price       :decimal(, )
