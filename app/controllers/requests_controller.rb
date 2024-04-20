@@ -1,14 +1,8 @@
 class RequestsController < ApplicationController
   before_action :authenticate_user!, except: [:all_requests]
-  #before_action :require_permission, except: [:all_requests, :show, :new_customize_zord, :create_new_zord]
   before_action :require_user, only: [:all_requests, :new_customize_zord, :create_new_zord,:edit,:update_customize_zord,:destroy]
   before_action :require_vendor, only: [:vendor_requests, :approval, :decision_request, ]
-  def require_permission
-    if Request.find(params[:id]).user != current_user
-      flash[:error] = 'You do not have permission to do that.'
-      redirect_to requests_all_requests_path
-    end
-  end
+
   def all_requests
     @requests = current_user.requests.where(status: 'Pending')
     render :all_requests
@@ -58,6 +52,8 @@ class RequestsController < ApplicationController
     @requests = Request.where(status: 'Pending')
     render :vendor_requests
   end
+
+
   def approval
     @request = Request.find(params[:id])
     render :approval
