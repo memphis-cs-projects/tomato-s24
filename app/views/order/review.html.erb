@@ -1,0 +1,93 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 mx-auto">
+      <div class="card mt-5">
+        <div class="card-body">
+          <h1 class="card-title">Review Order</h1>
+
+          <!-- Order Status -->
+          <p class="card-text">Order Status: <%= @order.status %></p>
+
+          <!-- Associated Address -->
+          <h3 class="card-title">Address Details:</h3>
+          <% if @order.address.present? %>
+            <p class="card-text">Street Address: <%= @order.address.street_address %></p>
+            <p class="card-text">City: <%= @order.address.city %></p>
+            <p class="card-text">State: <%= @order.address.state %></p>
+            <p class="card-text">Zipcode: <%= @order.address.zipcode %></p>
+          <% else %>
+            <p class="card-text">No associated address found</p>
+          <% end %>
+
+          <!-- Associated Payment -->
+          <h3 class="card-title">Payment Details:</h3>
+          <% if @order.payment.present? %>
+            <p class="card-text">Card Type: <%= @order.payment.card_type %></p>
+            <p class="card-text">Card Number: <%= @order.payment.card_number %></p>
+            <!-- Add more payment attributes here -->
+          <% else %>
+            <p class="card-text">No associated payment found</p>
+          <% end %>
+
+          <!-- Order Items -->
+          <h3 class="card-title">Order Items</h3>
+
+          <% if @order.order_items.present? %>
+            <div class="row mb-4">
+              <% @order.order_items.each do |order_item| %>
+                <% if order_item.zord.figure_image.attached? %>
+                  <div class="col-md-3 mb-1 mt-1">
+                    <%= image_tag order_item.zord.figure_image, class: "img-fluid rounded", style: "width: 200px; height: 200px; object-fit: cover;" %>
+                  </div>
+                <% end %>
+
+                <div class="col-md-6 mb-1 mt-1">
+                  <div class="card-body">
+                    <h5 class="card-title"><%= order_item.zord.name %></h5>
+                    <p class="card-text mb-1">Price: <%= number_to_currency(order_item.zord.price) %></p>
+                    <p class="card-text mb-1"><strong>Material: </strong><%= order_item.zord.material %></p>
+                    <p class="card-text mb-1"><strong>Theme: </strong><%= order_item.zord.theme %></p>
+                  </div>
+                </div>
+
+                <div class="col-md-3 mb-1 mt-1">
+                  <p class="card-text mb-1"><strong>Quantity: </strong><%= order_item.quantity %></p>
+                </div>
+              <% end %>
+            </div>
+            <% else %>
+            <p class="card-text">No order items found</p>
+          <% end %>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 mx-auto">
+      <div class="card mt-5">
+        <div class="card-body">
+
+          <div class="row">
+            <div class="col-md-9">
+              <!-- Total Price -->
+              <% total_price = @order.order_items.sum { |order_item| order_item.zord.price * order_item.quantity } %>
+              <h3 class="card-title">Total Price: <%= number_to_currency(total_price) %></h3>
+            </div>
+
+            <div class="col-md-3">
+              <!-- Place Order Button -->
+              <%= link_to "Place Order", place_path(@order), class: "btn btn-success" %>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

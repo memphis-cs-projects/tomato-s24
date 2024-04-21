@@ -28,18 +28,18 @@ Rails.application.routes.draw do
   post 'bids/:bid_id/UpdateBid', to:'bids#update_bid', as: 'update_bid'
   delete 'bids/registration/:bid_id', to: 'bids#destroy_registration', as: 'destroy_registration'
 
-
-
   get 'cart', to: 'cart#index', as: 'cart'
   post 'zords/:id/add_to_cart', to: 'cart#add_to_cart', as: 'add_to_cart'
   delete 'cart_items/:id/remove_from_cart', to: 'cart#remove_from_cart', as: 'remove_from_cart'
 
-  get 'order/add_address', to: 'order#add_address', as: 'add_address'
+  get 'order/address', to: 'order#address', as: 'address'
   post 'create_address', to: 'order#create_address', as:'create_address'
-  get 'order/add_payment', to: 'order#add_payment', as: 'add_payment'
+  get 'order/payment', to: 'order#payment', as: 'payment'
   post 'create_payment', to: 'order#create_payment', as:'create_payment'
 
-
+  get 'order/checkout', to: 'order#checkout', as: 'checkout'
+  get 'order/:id/review', to: 'order#review', as: 'review'
+  get 'order/:id/place', to: 'order#place', as: 'place'
 
  get 'requests', to:'requests#all_requests', as:'requests_all_requests'
  get 'requests/new_customize_zord', to:'requests#new_customize_zord', as:'request_customize_zord'
@@ -54,7 +54,6 @@ Rails.application.routes.draw do
  get 'requests/:id/reject', to: 'requests#reject', as: 'reject_request'
  patch 'requests/:id/reject', to: 'requests#decision_reject_request'
  get 'notifications', to:'notifications#all_notifications', as: 'all_notifications'
-
 
   # Devise routes for user sign-in, sign-up, sign-out, etc.
   devise_for :users
