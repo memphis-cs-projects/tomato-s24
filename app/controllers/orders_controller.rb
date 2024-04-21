@@ -1,9 +1,19 @@
-class OrderController < ApplicationController
+class OrdersController < ApplicationController
   before_action :authenticate_user!
+
+  def index
+    @orders = current_user.orders
+    render :index
+  end
 
   def address
     @address = Address.new
     render :address
+  end
+
+  def show
+    @order = Order.find(params[:id])
+    render :show
   end
 
   def create_address
@@ -33,7 +43,6 @@ class OrderController < ApplicationController
     end
   end
 
-
   def checkout
     @address = Address.find(params[:address_id])
     @payment = Payment.find(params[:payment_id])
@@ -62,21 +71,21 @@ class OrderController < ApplicationController
     else
       # Handle unsuccessful order creation
     end
-    end
+  end
 
-    def review
-      @order = Order.find(params[:id])
-      render :review
-    end
+  def review
+    @order = Order.find(params[:id])
+    render :review
+  end
 
-    def place
-      @order = Order.find(params[:id])
-      @order.status = 'Placed'
-      if @order.save
-        render :place
-      else
-        redirect_to review_path(@order), notice: 'Error occured while placing the order. Please try again later.'
-      end
+  def place
+    @order = Order.find(params[:id])
+    @order.status = 'Placed'
+    if @order.save
+      render :place
+    else
+      redirect_to review_path(@order), notice: 'Error occured while placing the order. Please try again later.'
     end
+  end
 
 end
