@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_04_15_210803) do
+ActiveRecord::Schema[7.0].define(version: 2024_04_17_183613) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -68,19 +68,26 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_15_210803) do
     t.index ["user_id"], name: "index_carts_on_user_id"
   end
 
-<<<<<<< HEAD
+  create_table "order_items", force: :cascade do |t|
+    t.bigint "order_id", null: false
+    t.bigint "zord_id", null: false
+    t.integer "quantity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_order_items_on_order_id"
+    t.index ["zord_id"], name: "index_order_items_on_zord_id"
+  end
+
   create_table "orders", force: :cascade do |t|
     t.string "status"
     t.bigint "address_id", null: false
     t.bigint "user_id", null: false
-    t.bigint "zord_id", null: false
     t.bigint "payment_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["address_id"], name: "index_orders_on_address_id"
     t.index ["payment_id"], name: "index_orders_on_payment_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
-    t.index ["zord_id"], name: "index_orders_on_zord_id"
   end
 
   create_table "payments", force: :cascade do |t|
@@ -89,7 +96,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_15_210803) do
     t.date "expiry_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-=======
+  end
+
   create_table "requests", force: :cascade do |t|
     t.string "name"
     t.string "type"
@@ -105,7 +113,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_15_210803) do
     t.datetime "updated_at", null: false
     t.bigint "user_id"
     t.index ["user_id"], name: "index_requests_on_user_id"
->>>>>>> 97d3464471a96ccbb15badcfe9365daeb3c68a2a
   end
 
   create_table "users", force: :cascade do |t|
@@ -139,12 +146,10 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_15_210803) do
   add_foreign_key "cart_items", "carts"
   add_foreign_key "cart_items", "zords"
   add_foreign_key "carts", "users"
-<<<<<<< HEAD
+  add_foreign_key "order_items", "orders"
+  add_foreign_key "order_items", "zords"
   add_foreign_key "orders", "addresses"
   add_foreign_key "orders", "payments"
   add_foreign_key "orders", "users"
-  add_foreign_key "orders", "zords"
-=======
   add_foreign_key "requests", "users"
->>>>>>> 97d3464471a96ccbb15badcfe9365daeb3c68a2a
 end

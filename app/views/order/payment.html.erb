@@ -9,10 +9,10 @@
         <%= f.label :card_type, "Card Type: ", class: "form-label" %>
       </div>
       <div class="col-md-4">
-        <%= f.radio_button :card_type, "credit_card", id: "credit-card-radio", required: true %>
+        <%= f.radio_button :card_type, "Credit Card", id: "credit-card-radio", required: true %>
       </div>
       <div class="col-md-4">
-        <%= f.radio_button :card_type, "debit_card", id: "debit-card-radio" %>
+        <%= f.radio_button :card_type, "Debit Card", id: "debit-card-radio" %>
       </div>
     </div>
     <div class="invalid-feedback">Please select your card type.</div>
@@ -33,6 +33,8 @@
     <%= f.text_field :security_code, class: "form-control", required: true, pattern: "[0-9]*"  %>
     <div class="invalid-feedback">Please enter your security code.</div>
   </div>
+  <!-- Other form fields -->
+  <%= f.hidden_field :address_id, value: @address_id %>
   <!-- Button to submit the form -->
   <%= f.submit "Review Order", class: "btn btn-primary" %>
   <% end %>
