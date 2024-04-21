@@ -1,4 +1,4 @@
-<h1>Available Requests</h1>
+<h1>Requests</h1>
  
 <table class="table table-hover">
  
@@ -9,7 +9,6 @@
       <th>Ability</th>
       <th>Capacity</th>
       <th>Status</th>
-      <th></th>
       <th></th>
       <th></th>
     </tr>
@@ -23,16 +22,10 @@
         <td><%= request.ability %></td>
         <td><%= request.capacity %></td>
         <td><%= request.status %></td>
-        <td><%= link_to "Show", request_path(request) %></td>
-        <td><%= link_to "Edit", edit_request_path(request) %></td>
-        <td><%= button_to "Delete", request_path(request), method: :delete, data: { turbo: false }, class: "btn btn-sm btn-danger" %></td>
+        <td><%= link_to "Approve", approval_request_path(request)%></td>
+        <td><%= link_to "Reject", reject_request_path(request)%></td>
+        
       </tr>
     <% end %>
   </tbody>
  </table>
- <p>
-  <%= link_to "Create New Request", request_customize_zord_path, class: 'btn btn-primary' %>
-  </p>
-
-
-

@@ -10,7 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_04_17_183613) do
+ActiveRecord::Schema[7.0].define(version: 2024_04_18_030231) do
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -51,6 +52,16 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_17_183613) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "bids", force: :cascade do |t|
+    t.date "start_date"
+    t.date "end_date"
+    t.bigint "zord_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.decimal "base_price"
+    t.index ["zord_id"], name: "index_bids_on_zord_id"
+  end
+
   create_table "cart_items", force: :cascade do |t|
     t.bigint "cart_id", null: false
     t.bigint "zord_id", null: false
@@ -76,6 +87,17 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_17_183613) do
     t.datetime "updated_at", null: false
     t.index ["order_id"], name: "index_order_items_on_order_id"
     t.index ["zord_id"], name: "index_order_items_on_zord_id"
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.string "subject"
+    t.string "message"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.bigint "request_id"
+    t.index ["request_id"], name: "index_notifications_on_request_id"
+    t.index ["user_id"], name: "index_notifications_on_user_id"
   end
 
   create_table "orders", force: :cascade do |t|
@@ -115,6 +137,16 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_17_183613) do
     t.index ["user_id"], name: "index_requests_on_user_id"
   end
 
+  create_table "user_registrations", force: :cascade do |t|
+    t.bigint "bid_id", null: false
+    t.bigint "user_id", null: false
+    t.integer "bid_value", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["bid_id"], name: "index_user_registrations_on_bid_id"
+    t.index ["user_id"], name: "index_user_registrations_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -139,17 +171,30 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_17_183613) do
     t.integer "quantity"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "limited", default: false
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "bids", "zords"
   add_foreign_key "cart_items", "carts"
   add_foreign_key "cart_items", "zords"
   add_foreign_key "carts", "users"
+
   add_foreign_key "order_items", "orders"
   add_foreign_key "order_items", "zords"
   add_foreign_key "orders", "addresses"
   add_foreign_key "orders", "payments"
   add_foreign_key "orders", "users"
   add_foreign_key "requests", "users"
+
+  add_foreign_key "notifications", "requests"
+  add_foreign_key "notifications", "users"
+  add_foreign_key "orders", "addresses"
+  add_foreign_key "orders", "payments"
+  add_foreign_key "orders", "users"
+  add_foreign_key "orders", "zords"
+  add_foreign_key "requests", "users"
+  add_foreign_key "user_registrations", "bids"
+  add_foreign_key "user_registrations", "users"
 end

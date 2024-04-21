@@ -24,6 +24,9 @@
   <!--<%= f.select :theme, Request::THEME_OPTIONS , { disabled: ['select'] }, { prompt: 'Select Material' } %>-->
   <%= f.select :theme, options_for_select(Zord.available_themes.map { |m| [m, m] }), { include_blank: true } %>
   <%= f.number_field :capacity, label: "Capacity" %>
+  <p>
+  Status: <%= @request.status%>
+</p>
   <%= f.submit 'Create Request'%>
  
 <% end %>
