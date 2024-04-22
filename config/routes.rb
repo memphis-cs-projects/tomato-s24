@@ -56,6 +56,7 @@ Rails.application.routes.draw do
  get 'requests/:id/reject', to: 'requests#reject', as: 'reject_request'
  patch 'requests/:id/reject', to: 'requests#decision_reject_request'
  get 'notifications', to:'notifications#all_notifications', as: 'all_notifications'
+ get 'notifications/:id', to: 'notifications#show_notification', as: 'notification'
 
   # Devise routes for user sign-in, sign-up, sign-out, etc.
   devise_for :users

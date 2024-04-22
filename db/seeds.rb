@@ -168,5 +168,6 @@ Notification.create!(
   subject: 'Message from Vendor',
   message: 'Welcome Message',
   request: request2,
-  user: user2
+  user: user2,
+  zord: zord5
 )

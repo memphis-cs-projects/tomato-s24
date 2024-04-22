@@ -44,7 +44,7 @@ class CartController < ApplicationController
     else
       flash[:error] = "You can't remove an zord"
     end
-    redirect_to cart_url 
+    redirect_to cart_url
   end
 
 end

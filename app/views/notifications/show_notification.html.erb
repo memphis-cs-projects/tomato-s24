@@ -1,0 +1,8 @@
+<h1><%= @notification.subject %></h1>
+ 
+<p>
+  Message: <%= @notification.message %>
+</p>
+ <p>
+    <%= button_to "Pay for Customized Item", add_to_cart_path(@notification.zord), method: :post, class: "btn btn-success" %>
+ </p>

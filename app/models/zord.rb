@@ -21,6 +21,10 @@ class Zord < ApplicationRecord
   has_many :order_items
   has_many :orders, through: :order_items
 
+  has_one(
+  :notification,
+  dependent: :destroy)
+
   has_one :bid, dependent:   :destroy
 
   has_one_attached :figure_image

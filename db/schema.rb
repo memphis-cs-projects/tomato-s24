@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_04_18_030231) do
+ActiveRecord::Schema[7.0].define(version: 2024_04_22_061149) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -85,8 +85,10 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_18_030231) do
     t.datetime "updated_at", null: false
     t.bigint "user_id"
     t.bigint "request_id"
+    t.bigint "zord_id"
     t.index ["request_id"], name: "index_notifications_on_request_id"
     t.index ["user_id"], name: "index_notifications_on_user_id"
+    t.index ["zord_id"], name: "index_notifications_on_zord_id"
   end
 
   create_table "order_items", force: :cascade do |t|
@@ -181,6 +183,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_18_030231) do
   add_foreign_key "carts", "users"
   add_foreign_key "notifications", "requests"
   add_foreign_key "notifications", "users"
+  add_foreign_key "notifications", "zords"
   add_foreign_key "order_items", "orders"
   add_foreign_key "order_items", "zords"
   add_foreign_key "orders", "addresses"
