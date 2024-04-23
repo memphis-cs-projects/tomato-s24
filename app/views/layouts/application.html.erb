@@ -50,10 +50,12 @@
                   <%= link_to "Orders", orders_path, class: "nav-link" %>
                 </li>
                 <li class="nav-item">
-                  <%= link_to "Cart", cart_path, class: "nav-link" %>
+                  <% cart_count = current_user.cart ?  current_user.cart.cart_items.count.to_s : "0" %>
+                  <%= link_to "Cart (#{cart_count})", cart_path, class: "nav-link" %>
                 </li>
                 <li class="nav-item">
-                  <%= link_to "Notifications", all_notifications_path, class: "nav-link" %>
+                  <% notification_count = Notification.where(user:current_user).count.to_s  %>
+                  <%= link_to "Notifications (#{notification_count})", all_notifications_path, class: "nav-link" %>
                 </li>
               <% end %>
             <% end %>

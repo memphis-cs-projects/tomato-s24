@@ -20,12 +20,12 @@ user2 = User.create!(
 )
 
 user3 = User.create!(
-  email: 'vishal@email.com',
+  email: 'vendor@email.com',
   password: 'password',
   vendor: true
 )
 
-
+#Zords
 zord1 = Zord.create!(
   name: "Thunder Striker",
   theme: "Thunderstorms",
@@ -112,19 +112,38 @@ zord6 = Zord.create!(
 zord6.figure_image.attach(io: File.open(Rails.root.join('app/assets/images/zord2.jpeg')),
 filename: 'zord4.jpg')
 
+#Bids
 bid1 = Bid.create!(
   zord: zord5,
   start_date: '2024-04-17',
-  end_date: '2024-04-24',
+  end_date: '2024-04-27',
   base_price: 170
 )
 
 bid2 = Bid.create!(
   zord: zord6,
-  start_date: '2024-04-25',
+  start_date: '2024-04-27',
   end_date: '2024-04-30',
   base_price: 300
 )
+
+bid3 = Bid.create!(
+  zord: zord5,
+  start_date: '2024-04-12',
+  end_date: '2024-04-18',
+  base_price: 300
+)
+
+#Requests
+request0= Request.create!(
+  material:  'Winner Notification',
+  theme: 'Winner',
+  ability: 'Winner Powers',
+  capacity:  5,
+  status: 'Winner',
+  user: user3
+)
+
 
 request1= Request.create!(
   material:  'Vibranium',
@@ -152,7 +171,9 @@ request3 =Request.create!(
   status: 'Pending',
   user: user1
 )
-ser_registration1 = UserRegistration.create!(
+
+#User Registrations
+user_registration1 = UserRegistration.create!(
   user: user1,
   bid: bid1,
   bid_value: 180
@@ -164,6 +185,31 @@ user_registration2 = UserRegistration.create!(
   bid_value: 190
 )
 
+user_registration3 = UserRegistration.create!(
+  user: user1,
+  bid: bid2,
+  bid_value: 1800
+)
+
+user_registration4 = UserRegistration.create!(
+  user: user2,
+  bid: bid2,
+  bid_value: 1900
+)
+
+user_registration5 = UserRegistration.create!(
+  user: user1,
+  bid: bid3,
+  bid_value: 2000
+)
+
+user_registration6 = UserRegistration.create!(
+  user: user2,
+  bid: bid3,
+  bid_value: 1900
+)
+
+#Notifications
 Notification.create!(
   subject: 'Message from Vendor',
   message: 'Welcome Message',
