@@ -5,6 +5,11 @@ class NotificationsController < ApplicationController
     render :all_notifications
   end
 
+  def show_notification
+    @notification = Notification.find(params[:id])
+    render :show_notification
+  end
+
   def winner_notification
     @bid = Bid.find(params[:bid_id])
     @user_reg = UserRegistration.where(bid: @bid).order(bid_value: :desc).first

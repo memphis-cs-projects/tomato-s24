@@ -64,15 +64,19 @@ class RequestsController < ApplicationController
     @zord = Zord.new(params.require(:request).permit(:price, :description, :name, :figure_image))
     @notification = Notification.new(params.require(:request).permit(:message))
     @notification.user = @request.user
-    @notification.subject = "Vendor's Reply about your Request"  + @request.id.to_s
-    @notification.request = @request
-    @zord.capacity = @request.capacity
     @zord.material = @request.material
+    @zord.capacity = @request.capacity
     @zord.ability = @request.ability
     @zord.theme = @request.theme
     @request.status = 'Approved'
+    @notification.subject = "Vendor's Reply about your Request"  + @request.id.to_s
+    @notification.request = @request
+    @notification.zord = @zord
     @request.save
-
+    @notification.message += "_"+ @zord.name
+    @notification.status = "Customization-Approved"
+    @zord.save
+    @zord = Zord.find(params[:id])
     if @zord.save
       if @notification.save
         flash[:success] = 'New Request successfully added!'
@@ -98,6 +102,7 @@ class RequestsController < ApplicationController
     @notification.user = @request.user
     @notification.subject = "Vendor's Reply about your Request" + @request.id.to_s
     @notification.request = @request
+    @notification.status = "Customization-Rejected"
     if @notification.save
       flash[:success] = 'Request Rejected!'
       #@request.destroy
