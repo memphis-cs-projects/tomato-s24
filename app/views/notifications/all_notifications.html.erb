@@ -6,6 +6,7 @@
     <tr>
       <th>Subject</th>
       <th>Message</th>
+      <th>Status</th>
       <th></th>
     </tr>
   </thead>
@@ -20,6 +21,7 @@
       <tr>
         <td><%= notification.subject %></td>
         <td><%= notification.message %></td>
+        <td><%= notification.status %></td>
         <td><%= link_to "show_notification", notification_path(notification) %></td>
         </tr>
     <% end %>
