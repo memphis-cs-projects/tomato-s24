@@ -13,6 +13,7 @@
       <th></th>
       <th></th>
       <th></th>
+      <th></th>
     </tr>
   </thead>
  
@@ -23,8 +24,12 @@
         <td><%= bid.start_date %></td>
         <td><%= bid.end_date %></td>
         <td><%= number_to_currency(bid.base_price)%></td>
-        <td><%= link_to "Show", show_zord_bid_path(bid) %></td>
+        
+        <td><%= link_to "Show", show_zord_bid_path(bid), class: "btn btn-sm btn-primary" %></td>
         <td><%= button_to "Delete", bid_path(bid), method: :delete, data: { turbo: false }, class: "btn btn-sm btn-danger" %></td>
+        <%if bid.end_date < Date.today%>
+          <td><%= button_to "Send Winner Notifcation", winner_notification_path(bid), method: :post, class: "btn btn-success" %></td>
+        <%end%>
       </tr>
     <% end %>
   </tbody>
@@ -50,12 +55,14 @@
         <td><%= bid.zord.name %></td>
         <td><%= bid.start_date %></td>
         <td><%= bid.end_date %></td>
-        <td><%= number_to_currency(bid.base_price)%></td>
-        <td><%= link_to "Add or update Bid", add_user_bid_path(bid), class: "btn btn-success" %></td>
-        <td><%= button_to "Deregister", destroy_registration_path(bid), method: :delete, data: { turbo: false }, class: "btn btn-info" %></td>
+        <td><%= number_to_currency(bid.zord.price)%></td>
+        
         <% if bid.start_date < Date.today && bid.end_date >= Date.today %>
+          <td><%= link_to "Add or update Bid", add_user_bid_path(bid), class: "btn btn-success" %></td>
+          <td><%= button_to "Deregister", destroy_registration_path(bid), method: :delete, data: { turbo: false }, class: "btn btn-info" %></td>
           <td>Bid is Live</td>
         <% elsif bid.start_date > Date.today %>
+          <td><%= button_to "Deregister", destroy_registration_path(bid), method: :delete, data: { turbo: false }, class: "btn btn-info" %></td>
           <td>Bid is Upcoming</td>
         <% elsif bid.end_date < Date.today %>
           <td>Bid is Finished</td>
@@ -86,9 +93,9 @@
         <td><%= bid.zord.name %></td>
         <td><%= bid.start_date %></td>
         <td><%= bid.end_date %></td>
-        <td><%= number_to_currency(bid.base_price)%></td>
+        <td><%= number_to_currency(bid.zord.price)%></td>
         <%if current_user && current_user.vendor?%>
-            <td><%= link_to "Show", show_zord_bid(bid) %></td>
+            <td><%= link_to "Show", show_zord_bid(bid), class: "btn btn-primary" %></td>
             <td><%= button_to "Delete", bid_path(bid), method: :delete, data: { turbo: false }, class: "btn btn-sm btn-danger" %></td>
         <%else%>
             <td><%= link_to "Register for Bid", show_zord_bid_path(bid), class: "btn btn-primary" %></td>

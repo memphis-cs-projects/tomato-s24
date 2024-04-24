@@ -22,6 +22,9 @@
       <%= button_to "Register", register_path(@bid), method: :post, class: "btn btn-success" %>
     <%else%>
       <h5>User Biddings</h5>
+      <%if @bid.end_date < Date.today%>
+        <%= button_to "Send Winner Notifcation", winner_notification_path(@bid), method: :post, class: "btn btn-success" %>
+      <%end%>
       <table class="table table-hover">
         <thead class="table-dark">
           <tr>

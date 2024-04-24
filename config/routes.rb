@@ -58,6 +58,8 @@ Rails.application.routes.draw do
  get 'notifications', to:'notifications#all_notifications', as: 'all_notifications'
  get 'notifications/:id', to: 'notifications#show_notification', as: 'notification'
 
+ post 'winner/send_notification/:bid_id', to: 'notifications#winner_notification', as: 'winner_notification'
+
   # Devise routes for user sign-in, sign-up, sign-out, etc.
   devise_for :users
 
