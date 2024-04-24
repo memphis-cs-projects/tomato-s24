@@ -1,0 +1,14 @@
+<h1><%= @notification.subject %></h1>
+ 
+<p>
+  <%= @notification.message %>
+</p>
+
+
+<%if @notification.status != "Paid"%>
+  <p>
+      <%= button_to "Pay for Customized Item", add_to_cart_path(zord_id: @notification.zord.id, notification_id: @notification.id), method: :post, class: "btn btn-success" %>
+  </p>
+  <%else%>
+  <p>You have already added this item to cart. </p>
+ <%end%>

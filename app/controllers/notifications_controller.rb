@@ -5,6 +5,11 @@ class NotificationsController < ApplicationController
     render :all_notifications
   end
 
+  def show_notification
+    @notification = Notification.find(params[:id])
+    render :show_notification
+  end
+
   def winner_notification
     @bid = Bid.find(params[:bid_id])
     @user_reg = UserRegistration.where(bid: @bid).order(bid_value: :desc).first
@@ -17,6 +22,8 @@ class NotificationsController < ApplicationController
     @notification.user = user
     @notification.request_id = 1
     @notification.subject = "Winner of Bidding for " + @bid.zord.name
+    @notification.status = "Notification sent"
+    @notification.zord = @bid.zord
 
     if @notification.save
       flash[:success] = "Notification sent to " + user.email
@@ -31,7 +38,7 @@ class NotificationsController < ApplicationController
     @notification = Notification.find(params[:notification_id])
     notification_subject = @notification.subject
     zord_name = notification_subject.sub("Winner of Bidding for ", "")
-    @zord = Zord.find_by(name: zord_name)
+    @zord = @notification.zord
     bid = Bid.where(zord: @zord)
     notification_message = @notification.message
     bid_amount = notification_message.match(/The bid amount is (\d+)/)[1].to_i
