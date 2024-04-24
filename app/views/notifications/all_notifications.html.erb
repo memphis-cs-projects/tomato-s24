@@ -12,11 +12,17 @@
  
   <tbody>
     
-    <% @notifications.each do |notification| %>
-      <tr>
-        <td><%= notification.subject %></td>
-        <td><%= notification.message %></td>
-        </tr>
-    <% end %>
+  <% @notifications.each do |notification| %>
+    <tr>
+      <td><%= notification.subject %></td>
+      <td><%= notification.message %></td>
+      <td>
+        <%if notification.subject.include?("Winner")%>
+          <%= link_to 'Pay For Bid', view_winner_notification_path(notification), class: "btn btn-primary me-5" %>
+        <%end%>
+      </td>
+      </tr>
+  <% end %>
+
   </tbody>
  </table>

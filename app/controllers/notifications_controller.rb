@@ -18,17 +18,6 @@ class NotificationsController < ApplicationController
     @notification.request_id = 1
     @notification.subject = "Winner of Bidding for " + @bid.zord.name
 
-    # zord = Zord.find(params[:id])
-    # cart = user.cart || user.create_cart
-    # cart_item = cart.cart_items.build(zord: zord, quantity: 1)
-
-    # if cart_item.save
-    #   flash[:success] = "#{zord.name} has been added to the cart."
-    #   redirect_to zords_url
-    # else
-    #   flash.now[:error] = 'Failed adding to the cart.'
-    #   render :new, status: :unprocessable_entity
-    # end
     if @notification.save
       flash[:success] = "Notification sent to " + user.email
       redirect_to all_bids_path
@@ -37,5 +26,19 @@ class NotificationsController < ApplicationController
       redirect_to all_bids_path, status: :unprocessable_entity
     end
   end
+
+  def view_winner_notification
+    @notification = Notification.find(params[:notification_id])
+    notification_subject = @notification.subject
+    zord_name = notification_subject.sub("Winner of Bidding for ", "")
+    @zord = Zord.find_by(name: zord_name)
+    bid = Bid.where(zord: @zord)
+    notification_message = @notification.message
+    bid_amount = notification_message.match(/The bid amount is (\d+)/)[1].to_i
+    @zord.update(price: bid_amount)
+    
+    render :view_winner_notification
+  end
+
 
 end
