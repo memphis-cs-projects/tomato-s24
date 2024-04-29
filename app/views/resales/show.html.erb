@@ -1,0 +1,34 @@
+<!-- app/views/resales/show.html.erb -->
+
+<div class="container mt-5">
+  <div class="row">
+    <div class="col">
+      <%= link_to "Back", resales_index_path, class: "btn btn-secondary float-right mb-3" %>
+    </div>
+  </div>
+  <h1 class="mb-4">Resale Details</h1>
+
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Resale Information</h5>
+      <p>Zord: <%= @resale.zord.name %></p>
+      <p>New Price: <%= number_to_currency(@resale.new_price) %></p>
+      <p>Condition: <%= @resale.condition %></p>
+      <p>Status: <%= @resale.status %></p>
+    </div>
+  </div>
+
+  <div class="card mt-4">
+    <div class="card-body">
+      <h5 class="card-title">Zord Details</h5>
+      <p>Name: <%= @resale.zord.name %></p>
+      <p>Theme: <%= @resale.zord.theme %></p>
+      <p>Price: <%= number_to_currency(@resale.zord.price) %></p>
+      <% if @resale.zord.figure_image.attached? %>
+        <%= image_tag @resale.zord.figure_image, class: "card-img-top", alt: "Zord Image" %>
+      <% else %>
+        <img src="https://via.placeholder.com/300" class="card-img-top" alt="Placeholder Image">
+      <% end %>
+    </div>
+  </div>
+</div>

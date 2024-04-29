@@ -1,0 +1,38 @@
+<!-- app/views/resales/index.html.erb -->
+
+<div class="container mt-5">
+  <h1 class="mb-4">All Resale Requests</h1>
+
+  <div class="row">
+    <% @resales.each do |resale| %>
+      <div class="col-md-4 mb-4">
+        <div class="card">
+          <% if resale.zord.figure_image.attached? %>
+            <%= image_tag resale.zord.figure_image, class: "card-img-top img-fluid zord-image", alt: "Zord Image" %>
+          <% else %>
+            <img src="https://via.placeholder.com/300" class="card-img-top img-fluid zord-image" alt="Placeholder Image">
+          <% end %>
+          <div class="card-body">
+            <h5 class="card-title"><%= resale.zord.name %></h5>
+            <p class="card-text">User: <%= resale.user.email %></p>
+            <p class="card-text">New Price: <%= number_to_currency(resale.new_price) %></p>
+            <p class="card-text">Condition: <%= resale.condition %></p>
+            <p class="card-text">Status: <%= resale.status %></p>
+            <%= button_to "Remove", resale_path(resale), method: :delete, data: { confirm: "Are you sure you want to remove this resale request?" }, class: "btn btn-danger" %><br>
+            <div>
+              <%= link_to "View Details", resale_path(resale), class: "btn btn-primary" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<!-- Custom CSS -->
+<style>
+  .zord-image {
+    width: 500px; /* Set the width as desired */
+    height: 500px; /* Set the height as desired */
+  }
+</style>

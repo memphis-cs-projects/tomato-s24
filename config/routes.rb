@@ -43,6 +43,14 @@ Rails.application.routes.draw do
   get 'order/:id/review', to: 'orders#review', as: 'review'
   get 'order/:id/place', to: 'orders#place', as: 'place'
 
+  get 'resales', to: 'resales#index', as: 'resales_index'
+  get 'resale/new/:zord_id', to: 'resales#new', as: 'new_resale'
+  post 'resale/create', to: 'resales#create', as: 'create_resale'
+  get 'resales/:id', to: 'resales#show', as: 'resale'
+  # Route for deleting a resale request
+  delete 'resales/:id', to: 'resales#destroy'
+
+
  get 'requests', to:'requests#all_requests', as:'requests_all_requests'
  get 'requests/new_customize_zord', to:'requests#new_customize_zord', as:'request_customize_zord'
  get 'requests/vendor_requests', to:'requests#vendor_requests', as:'requests_vendor_requests'
