@@ -61,7 +61,7 @@ Rails.application.routes.draw do
  get 'reviews/new_review', to: 'reviews#new_review', as: 'review_new'
  post 'reviews', to: 'reviews#create_new_review', as: 'create_new_review'
  post 'winner/send_notification/:bid_id', to: 'notifications#winner_notification', as: 'winner_notification'
-
+ 
   # Devise routes for user sign-in, sign-up, sign-out, etc.
   devise_for :users
 
