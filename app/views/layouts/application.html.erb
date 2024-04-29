@@ -51,6 +51,9 @@
                   <%= link_to "Orders", orders_path, class: "nav-link" %>
                 </li>
                 <li class="nav-item">
+                  <%= link_to "Resales", resales_index_path, class: "nav-link" %>
+                </li>
+                <li class="nav-item">
                   <% cart_count = current_user.cart ?  current_user.cart.cart_items.count.to_s : "0" %>
                   <%= link_to "Cart (#{cart_count})", cart_path, class: "nav-link" %>
                 </li>

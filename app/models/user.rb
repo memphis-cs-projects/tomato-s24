@@ -30,6 +30,7 @@ class User < ApplicationRecord
   )
   has_many :user_registrations
   has_many :bids, through: :user_registrations, source: :bid
+  has_many :resales, dependent: :destroy
 
   has_many(
     :notifications,
