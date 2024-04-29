@@ -16,6 +16,9 @@
     <p><strong>Capacity:</strong> <%= @zord.capacity %></p>
     <p><strong>Material:</strong> <%= @zord.material %></p>
     <p><strong>Price:</strong> <%= number_to_currency(@zord.price) %></p>
+    <p><strong>Rating:</strong> <%= @zord.avg_rating.round(1) %></p>
+    <% @zord.avg_rating = @zord.avg_rating.to_f.nan? ? 0 : @zord.avg_rating %>
+    <%= rating_stars(@zord.avg_rating)%>
     <% if current_user && current_user.vendor? %>
         <p><strong>Quantity:</strong> <%= @zord.quantity %></p>
     <% end %>
@@ -24,6 +27,20 @@
 
   
 </div>
+
+<% if @reviews.present? %>
+<h2>Reviews</h2>
+
+<ul>
+  <% @reviews.each do |review| %>
+    <li>
+      <strong>User:</strong> <%= review.user.email %><br>
+      <strong>Rating:</strong> <%= review.rating %><br>
+      <strong>Review Message:</strong> <%= review.review_message %>
+    </li>
+  <% end %>
+</ul>
+<% end %>
 
 
 <% if current_user && current_user.vendor? %>

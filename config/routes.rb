@@ -57,7 +57,9 @@ Rails.application.routes.draw do
  patch 'requests/:id/reject', to: 'requests#decision_reject_request'
  get 'notifications', to:'notifications#all_notifications', as: 'all_notifications'
  get 'notifications/:id', to: 'notifications#show_notification', as: 'notification'
-
+ get 'reviews', to: 'reviews#all_reviews', as: 'all_reviews'
+ get 'reviews/new_review', to: 'reviews#new_review', as: 'review_new'
+ post 'reviews', to: 'reviews#create_new_review', as: 'create_new_review'
  post 'winner/send_notification/:bid_id', to: 'notifications#winner_notification', as: 'winner_notification'
 
   # Devise routes for user sign-in, sign-up, sign-out, etc.

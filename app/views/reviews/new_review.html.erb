@@ -1,0 +1,59 @@
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<h1>Create New Review</h1>
+ 
+<div class="review">
+  <!-- Other review details -->
+  <div class="rating-stars">
+  <span class="star" data-value="1">&#9733;</span>
+  <span class="star" data-value="2">&#9733;</span>
+  <span class="star" data-value="3">&#9733;</span>
+  <span class="star" data-value="4">&#9733;</span>
+  <span class="star" data-value="5">&#9733;</span>
+</div>
+</div>
+
+<!-- Script tag for the star rating interaction -->
+<script>
+  $(document).ready(function() {
+    $('.rating-stars .star').on('click', function() {
+      var ratingValue = $(this).data('value');
+      $('#review_rating').val(ratingValue);
+
+      // Remove 'selected' class from all stars
+      $('.rating-stars .star').removeClass('selected');
+
+      // Add 'selected' class to clicked star and all preceding stars
+      $(this).addClass('selected').prevAll().addClass('selected');
+
+      // Optional: Highlight selected stars by changing color
+      $('.rating-stars .star.selected').css('color', '#f39c12'); // Change to orange color
+    });
+  });
+</script>
+
+
+<%= bootstrap_form_with model: @review, url: create_new_review_path(order_item_id: params[:order_item_id], zord_id: params[:zord_id]), method: :post, data: { turbo: false } do |f| %>
+ 
+  <% if @review.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@review.errors.count, "error") %> prohibited this review from being saved:</h2>
+      <ul>
+        <% @review.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.text_area :review_message, rows: 4 %>
+    <%= f.hidden_field :rating, id: 'review_rating' %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit 'Create Review', class: 'btn btn-primary' %>
+  </div>
+  <%= link_to "Cancel", orders_path, class: "btn btn-primary" %>
+
+<% end %>

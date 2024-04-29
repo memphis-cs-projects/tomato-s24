@@ -14,6 +14,8 @@
             <% order.order_items.each do |order_item| %>
               <li class="list-group-item">
                 <%= order_item.quantity %> x <%= order_item.zord.name %> - <%= number_to_currency(order_item.zord.price) %>
+                <%= link_to "Add a Review", review_new_path(order_item_id: order_item.id, zord_id: order_item.zord.id) , class: "btn btn-danger" %>
+                <%= link_to "View Reviews", all_reviews_path(zord_id: order_item.zord.id), class: "btn btn-primary mr-2" %>
               </li>
               <% total_price += order_item.quantity * order_item.zord.price %>
             <% end %>

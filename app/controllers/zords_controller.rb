@@ -8,6 +8,12 @@ class ZordsController < ApplicationController
     else
       @q = Zord.where(limited: false).ransack(params[:q] || {})
     end
+    # Check if avg_rating is passed as a parameter
+  if params[:q] && params[:q][:avg_rating].present?
+    @avg_rating_value = params[:q][:avg_rating]
+    # Do something with avg_rating_value if needed
+  end
+
     @zords = @q.result(distinct: true)
     @zords = params[:q] && params[:q][:s].present? ? @zords.order(params[:q][:s]) : @zords.order(:id)
     render :index
@@ -15,7 +21,10 @@ class ZordsController < ApplicationController
 
   def show
     @zord = Zord.find(params[:id])
-    render :show
+    @reviews = @zord.reviews
+    total_rating = @reviews.sum(:rating)
+    @average_rating = total_rating.to_f / @reviews.length
+    @zord.avg_rating = params[:average_rating].present? ? params[:average_rating] : @average_rating
   end
 
 
