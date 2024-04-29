@@ -31,7 +31,7 @@ class CartController < ApplicationController
     if cart_item.save
       flash[:success] = "#{zord.name} #{notification&.message || 'has been added to the cart.'}"  # Use safe navigation (&.) to handle nil notification
       if notification
-        notification.status = "Customization Paid"
+        notification.status = "Paid"
         notification.save
       end
       redirect_to zords_url
