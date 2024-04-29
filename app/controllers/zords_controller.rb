@@ -8,11 +8,6 @@ class ZordsController < ApplicationController
     else
       @q = Zord.where(limited: false).ransack(params[:q] || {})
     end
-    # Check if avg_rating is passed as a parameter
-  if params[:q] && params[:q][:avg_rating].present?
-    @avg_rating_value = params[:q][:avg_rating]
-    # Do something with avg_rating_value if needed
-  end
 
     @zords = @q.result(distinct: true)
     @zords = params[:q] && params[:q][:s].present? ? @zords.order(params[:q][:s]) : @zords.order(:id)
