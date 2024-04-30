@@ -7,6 +7,12 @@ class NotificationsController < ApplicationController
 
   def show_notification
     @notification = Notification.find(params[:id])
+    if @notification.subject.include?("Winner of Bidding for ")
+      @zord = @notification.zord
+      notification_message = @notification.message
+      bid_amount = notification_message.match(/The bid amount is (\d+)/)[1].to_i
+      @zord.update(price: bid_amount)
+    end
     render :show_notification
   end
 
@@ -24,6 +30,7 @@ class NotificationsController < ApplicationController
     @notification.subject = "Winner of Bidding for " + @bid.zord.name
     @notification.status = "Notification sent"
     @notification.zord = @bid.zord
+    @bid.update(start_date: Date.today, end_date: Date.today)
 
     if @notification.save
       flash[:success] = "Notification sent to " + user.email
@@ -43,7 +50,7 @@ class NotificationsController < ApplicationController
     notification_message = @notification.message
     bid_amount = notification_message.match(/The bid amount is (\d+)/)[1].to_i
     @zord.update(price: bid_amount)
-    
+
     render :view_winner_notification
   end
 

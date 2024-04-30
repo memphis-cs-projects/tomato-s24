@@ -27,9 +27,21 @@
         
         <td><%= link_to "Show", show_zord_bid_path(bid), class: "btn btn-sm btn-primary" %></td>
         <td><%= button_to "Delete", bid_path(bid), method: :delete, data: { turbo: false }, class: "btn btn-sm btn-danger" %></td>
-        <%if bid.end_date < Date.today%>
+        <%if bid.end_date < Date.today && bid.start_date != bid.end_date %>
           <td><%= button_to "Send Winner Notifcation", winner_notification_path(bid), method: :post, class: "btn btn-success" %></td>
+        <% else %>
+          <td><%= button_tag "Send Winner Notifcation", class: "btn btn-success", disabled: true %></td>    
         <%end%>
+        <% if bid.start_date < Date.today && bid.end_date >= Date.today %>
+          <td>Bid is Live</td>
+        <% elsif bid.start_date > Date.today %>
+          <td>Bid is Upcoming</td>
+        <% elsif bid.end_date < Date.today %>
+          <td>Bid is Finished</td>
+        <% elsif bid.end_date == bid.start_date  %>
+          <td>Winner notification sent</td>
+        <% end %>
+
       </tr>
     <% end %>
   </tbody>
