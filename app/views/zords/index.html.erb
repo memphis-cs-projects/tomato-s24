@@ -93,7 +93,7 @@
               <% total_rating = @reviews.sum(:rating) %>
               <% @average_rating = total_rating.to_f / @reviews.length %>
               <% zord.avg_rating = params[:average_rating].present? ? params[:average_rating] : @average_rating %>
-              <%= (zord.avg_rating = zord.avg_rating.to_f.nan? ? 0 : zord.avg_rating).round(1) %>
+              <% (zord.avg_rating = zord.avg_rating.to_f.nan? ? 0 : zord.avg_rating).round(1) %>
               <%= rating_stars(zord.avg_rating)%>
               <div class="mt-3 mb-3">
 

@@ -2,7 +2,7 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 #
-# This file is the source Rails uses to def22_061149ine your schema when running `bin/rails
+# This file is the source Rails uses to define your schema when running `bin/rails
 # db:schema:load`. When creating a new database, `bin/rails db:schema:load` tends to
 # be faster and is potentially less error prone than running all of your
 # migrations from scratch. Old migrations may fail to apply correctly if those
@@ -147,7 +147,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_30_000443) do
     t.index ["user_id"], name: "index_requests_on_user_id"
   end
 
-
   create_table "resales", force: :cascade do |t|
     t.bigint "zord_id", null: false
     t.bigint "user_id", null: false
@@ -159,7 +158,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_30_000443) do
     t.index ["user_id"], name: "index_resales_on_user_id"
     t.index ["zord_id"], name: "index_resales_on_zord_id"
   end
-
 
   create_table "reviews", force: :cascade do |t|
     t.string "review_message"
@@ -173,6 +171,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_30_000443) do
     t.index ["user_id"], name: "index_reviews_on_user_id"
     t.index ["zord_id"], name: "index_reviews_on_zord_id"
   end
+
   create_table "user_registrations", force: :cascade do |t|
     t.bigint "bid_id", null: false
     t.bigint "user_id", null: false
@@ -229,11 +228,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_30_000443) do
   add_foreign_key "requests", "users"
   add_foreign_key "resales", "users"
   add_foreign_key "resales", "zords"
-
   add_foreign_key "reviews", "order_items"
   add_foreign_key "reviews", "users"
   add_foreign_key "reviews", "zords"
-
   add_foreign_key "user_registrations", "bids"
   add_foreign_key "user_registrations", "users"
 end
