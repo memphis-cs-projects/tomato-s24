@@ -216,10 +216,42 @@ user_registration6 = UserRegistration.create!(
 )
 
 #Notifications
-Notification.create!(
+notification_1 = Notification.create!(
   subject: 'Message from Vendor',
   message: 'Welcome Message',
   request: request2,
-  user: user2,
+  user: user1,
   zord: zord5
+)
+
+address_1 = Address.create!(
+  street_address: '3655 Southern Ave',
+  city: 'MEM',
+  state: 'TN',
+  zipcode: '38111'
+)
+
+payment_1 = Payment.create!(
+  card_type: 'Credit Card',
+  card_number: '6',
+  expiry_date: '1'
+)
+
+order1 = Order.create!(
+  user: user1,
+  address: address_1,
+  payment: payment_1,
+)
+
+order_item_1 = OrderItem.create!(
+  order: order1,
+  zord: zord2,
+  quantity: 3
+)
+
+Review.create!(
+  order_item: order_item_1,
+  user: user1,
+  zord: zord2,
+  rating: 4
 )

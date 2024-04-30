@@ -1,4 +1,3 @@
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <h1>Create New Review</h1>
  
@@ -13,24 +12,6 @@
 </div>
 </div>
 
-<!-- Script tag for the star rating interaction -->
-<script>
-  $(document).ready(function() {
-    $('.rating-stars .star').on('click', function() {
-      var ratingValue = $(this).data('value');
-      $('#review_rating').val(ratingValue);
-
-      // Remove 'selected' class from all stars
-      $('.rating-stars .star').removeClass('selected');
-
-      // Add 'selected' class to clicked star and all preceding stars
-      $(this).addClass('selected').prevAll().addClass('selected');
-
-      // Optional: Highlight selected stars by changing color
-      $('.rating-stars .star.selected').css('color', '#f39c12'); // Change to orange color
-    });
-  });
-</script>
 
 
 <%= bootstrap_form_with model: @review, url: create_new_review_path(order_item_id: params[:order_item_id], zord_id: params[:zord_id]), method: :post, data: { turbo: false } do |f| %>
@@ -57,3 +38,22 @@
   <%= link_to "Cancel", orders_path, class: "btn btn-primary" %>
 
 <% end %>
+
+<!-- Script tag for the star rating interaction -->
+<script>
+  $(document).ready(function() {
+    $('.rating-stars .star').on('click', function() {
+      var ratingValue = $(this).data('value');
+      $('#review_rating').val(ratingValue);
+
+      // Remove 'selected' class from all stars
+      $('.rating-stars .star').removeClass('selected');
+
+      // Add 'selected' class to clicked star and all preceding stars
+      $(this).addClass('selected').prevAll().addClass('selected');
+
+      // Optional: Highlight selected stars by changing color
+      $('.rating-stars .star.selected').css('color', '#f39c12'); // Change to orange color
+    });
+  });
+</script>

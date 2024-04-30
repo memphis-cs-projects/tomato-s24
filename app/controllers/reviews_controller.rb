@@ -1,13 +1,8 @@
 class ReviewsController < ApplicationController
   def all_reviews
     zord = Zord.find(params[:zord_id])
-    @reviews = Review.where(zord_id: zord.id)
-    # Calculate average rating
-    total_rating = @reviews.sum(:rating)
-    @average_rating = total_rating.to_f / @reviews.length
-
     # Pass data to the Zords controller
-    redirect_to zord_path(id: zord.id, average_rating: @average_rating, reviews: @reviews)
+    redirect_to zord_path(id: zord.id)
   end
 
   def new_review
