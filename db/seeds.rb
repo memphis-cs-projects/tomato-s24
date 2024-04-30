@@ -34,7 +34,8 @@ zord1 = Zord.create!(
   ability: "Lightning Strike",
   price: 50,
   description: "A mighty MegaZord capable of summoning thunder and delivering devastating lightning strikes to its enemies.",
-  quantity: 15
+  quantity: 15,
+  avg_rating: 0
 )
 
 zord1.figure_image.attach(io: File.open(Rails.root.join('app/assets/images/zord1.jpeg')),
@@ -48,7 +49,8 @@ zord2 = Zord.create!(
   ability: "Cosmic Shield",
   price: 80,
   description: "An otherworldly MegaZord that safeguards the universe with its impenetrable cosmic shield, protecting all that is good from cosmic threats.",
-  quantity: 10
+  quantity: 10,
+  avg_rating: 0
 )
 
 zord2.figure_image.attach(io: File.open(Rails.root.join('app/assets/images/zord2.jpeg')),
@@ -62,7 +64,8 @@ zord3 = Zord.create!(
   ability: "Shadow Cloak",
   price: 30,
   description: "A sleek and stealthy MegaZord that moves through the shadows, striking swiftly with its razor-sharp blades to vanquish darkness wherever it lurks.",
-  quantity: 15
+  quantity: 15,
+  avg_rating: 0
 )
 
 zord3.figure_image.attach(io: File.open(Rails.root.join('app/assets/images/zord3.jpg')),
@@ -76,7 +79,8 @@ zord4 = Zord.create!(
   ability: "Phoenix Rebirth",
   price: 70,
   description: "A fiery MegaZord embodying the legendary phoenix, capable of rising from its ashes and unleashing blazing fury upon its adversaries.",
-  quantity: 5
+  quantity: 5,
+  avg_rating: 0
 )
 
 zord4.figure_image.attach(io: File.open(Rails.root.join('app/assets/images/zord4.jpg')),
@@ -91,6 +95,7 @@ zord5 = Zord.create!(
   price: 170,
   description: "A colossal MegaZord of unparalleled might, traversing the galaxies and delivering earth-shaking slams that shake the very fabric of the cosmos.",
   quantity: 1,
+  avg_rating: 0,
   limited: true
 )
 
@@ -106,6 +111,7 @@ zord6 = Zord.create!(
   price: 300,
   description: "A magnificent MegaZord hailing from the depths of space, harnessing the power of cosmic nebulae to create dazzling bursts of energy that dazzle and overwhelm its foes.",
   quantity: 1,
+  avg_rating: 0,
   limited: true
 )
 
@@ -210,10 +216,42 @@ user_registration6 = UserRegistration.create!(
 )
 
 #Notifications
-Notification.create!(
+notification_1 = Notification.create!(
   subject: 'Message from Vendor',
   message: 'Welcome Message',
   request: request2,
-  user: user2,
+  user: user1,
   zord: zord5
+)
+
+address_1 = Address.create!(
+  street_address: '3655 Southern Ave',
+  city: 'MEM',
+  state: 'TN',
+  zipcode: '38111'
+)
+
+payment_1 = Payment.create!(
+  card_type: 'Credit Card',
+  card_number: '6',
+  expiry_date: '1'
+)
+
+order1 = Order.create!(
+  user: user1,
+  address: address_1,
+  payment: payment_1,
+)
+
+order_item_1 = OrderItem.create!(
+  order: order1,
+  zord: zord2,
+  quantity: 3
+)
+
+Review.create!(
+  order_item: order_item_1,
+  user: user1,
+  zord: zord2,
+  rating: 4
 )

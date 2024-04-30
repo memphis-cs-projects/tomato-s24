@@ -4,6 +4,7 @@
 #
 #  id          :bigint           not null, primary key
 #  ability     :string
+#  avg_rating  :decimal(, )
 #  capacity    :integer
 #  description :text
 #  limited     :boolean          default(FALSE)
@@ -25,6 +26,10 @@ class Zord < ApplicationRecord
   has_one(
   :notification,
   dependent: :destroy)
+  has_many(
+    :reviews,
+    dependent: :destroy
+  )
 
   has_one :bid, dependent:   :destroy
 

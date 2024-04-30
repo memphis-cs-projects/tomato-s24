@@ -12,8 +12,6 @@
     </div>
   <% end %>
 
-  <!--<%= f.select :material, Request::MATERIAL_OPTIONS, { disabled: ['select'] }, { prompt: 'Select Material' } %>-->
-
   <div>
       <!--<%= f.label :material, "Material" %>-->
       <%= f.select :material, options_for_select(Zord.available_materials.map { |m| [m, m] }), { include_blank: true } %>
@@ -21,7 +19,6 @@
 
 <%= f.text_field :ability, label: "Ability" %>
 </div>
-  <!--<%= f.select :theme, Request::THEME_OPTIONS , { disabled: ['select'] }, { prompt: 'Select Material' } %>-->
   <%= f.select :theme, options_for_select(Zord.available_themes.map { |m| [m, m] }), { include_blank: true } %>
   <%= f.number_field :capacity, label: "Capacity" %>
   <p>
