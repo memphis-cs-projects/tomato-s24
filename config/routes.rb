@@ -49,7 +49,11 @@ Rails.application.routes.draw do
   get 'resales/:id', to: 'resales#show', as: 'resale'
   # Route for deleting a resale request
   delete 'resales/:id', to: 'resales#destroy'
+  
+  get '/vendor/resales', to: 'resales#vendor_index', as: 'vendor_index_resales'
+  patch '/vendor/resales/:id/update_status', to: 'resales#update_status', as: 'update_status_resale'
 
+  get 'account_balance', to: 'account_balances#show', as: 'account_balance'
 
  get 'requests', to:'requests#all_requests', as:'requests_all_requests'
  get 'requests/new_customize_zord', to:'requests#new_customize_zord', as:'request_customize_zord'
