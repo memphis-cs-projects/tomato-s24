@@ -1,4 +1,6 @@
 class ReviewsController < ApplicationController
+  before_action :authenticate_user!
+
   def all_reviews
     zord = Zord.find(params[:zord_id])
     # Pass data to the Zords controller

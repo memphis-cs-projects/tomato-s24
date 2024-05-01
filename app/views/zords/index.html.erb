@@ -81,9 +81,11 @@
           <% end %>
           <div class="col-md-9 mb-1 mt-1">
             <div class="card-body">
-              <h5 class="card-title"><%= zord.name %></h5>
               <% if zord.limited? %>
+                <h5 class="card-title"><i class="bi bi-gem"></i><%= zord.name %></h5>
                 <p class="card-text mb-1"><strong>Limited:</strong>Yes </p>
+              <% else %>
+                <h5 class="card-title"><%= zord.name %></h5>
               <% end  %>
               <p class="card-text mb-1">Price: <%= number_to_currency(zord.price) %></p>
               <p class="card-text mb-1"><strong>Material:</strong><%= zord.material %></p>

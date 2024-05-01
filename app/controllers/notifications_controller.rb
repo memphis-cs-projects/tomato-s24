@@ -1,4 +1,5 @@
 class NotificationsController < ApplicationController
+  before_action :authenticate_user!
 
   def all_notifications
     @notifications = current_user.notifications
