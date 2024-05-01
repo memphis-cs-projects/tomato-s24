@@ -6,7 +6,7 @@
           <h2 class="card-title">Order ID: <%= @order.id %></h2>
 
           <!-- Order Status -->
-          <p class="card-text">Order Status: <%= @order.status %></p>
+          <p class="card-text">Status: <span class="<%= @order.status == 'Placed' ? 'text-success' : 'text-danger' %>"><%= @order.status %></span></p>
 
           <!-- Order Items -->
           <h4 class="card-title">Order Items</h3>

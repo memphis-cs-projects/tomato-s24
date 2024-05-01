@@ -1,6 +1,33 @@
-<h1>Order Checkout</h1>
+<h2>Order Checkout - Payment Information</h2>
 
-<h3>Payment Information</h3>
+<% if @payments.empty? %>
+  <p><%= flash.now[:alert] %></p>
+<% else %>
+  <h3>Saved payment methods</h3>
+  <div class="row">
+    <% @payments.each do |payment| %>
+      <div class="col-md-4 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <p class="card-text"><strong>Card Type:</strong> <%= payment.card_type %></p>
+            <p class="card-text"><strong>Card Number:</strong> <%= payment.card_number %></p>
+            <p class="card-text"><strong>Expiry Date:</strong> <%= payment.expiry_date.strftime('%B %Y') %></p>
+            <%= form_tag(review_path, method: :get) do %>
+              <%= hidden_field_tag 'address_id', params[:address_id] %>
+              <%= hidden_field_tag 'payment_id', payment.id %>
+              <% if params[:order_id].present? %>
+                <%= hidden_field_tag 'order_id', params[:order_id]%>
+              <% end %>
+              <%= submit_tag 'Use this payment method', class: 'btn btn-primary' %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
+<h3>Add new payment method: </h3>
 <div id="payment-section" class="container">
   <%= bootstrap_form_with model: @payment, url: create_payment_path, method: :post, data: { turbo: false } do |f| %>
   <div class="mb-3">
@@ -9,10 +36,10 @@
         <%= f.label :card_type, "Card Type: ", class: "form-label" %>
       </div>
       <div class="col-md-4">
-        <%= f.radio_button :card_type, "Credit Card", id: "credit-card-radio", required: true %>
+        <%= f.radio_button :card_type, "Credit Card", value: "Credit Card", required: true%>
       </div>
       <div class="col-md-4">
-        <%= f.radio_button :card_type, "Debit Card", id: "debit-card-radio" %>
+        <%= f.radio_button :card_type, "Debit Card", value: "Debit Card" %>
       </div>
     </div>
     <div class="invalid-feedback">Please select your card type.</div>
@@ -20,21 +47,30 @@
     
 
   <div class="mb-3">
-    <%= f.text_field :card_number, class: "form-control", required: true, pattern: "[0-9]*"  %>
+    <%= f.text_field :card_number, class: "form-control", required: true, pattern: "[0-9]*"   %>
     <div class="invalid-feedback">Please enter your card number.</div>
   </div>
 
-  <div class="mb-3">
-    <%= f.text_field :expiry_date, class: "form-control", required: true, pattern: "[0-9]*" %>
-    <div class="invalid-feedback">Please enter your expiry date.</div>
+  <div class="mb-3 row">
+    <div class="col-md-6">
+      <%= f.select :expiry_month, options_for_select((1..12).map { |m| [Date::MONTHNAMES[m], m] }), { include_blank: 'Month' }, { class: "form-control", required: true } %>
+    </div>
+    <div class="col-md-6">
+      <%= f.select :expiry_year, options_for_select((Date.today.year..Date.today.year + 10).to_a), { include_blank: 'Year' }, { class: "form-control", required: true } %>
+    </div>
   </div>
 
   <div class="mb-3">
     <%= f.text_field :security_code, class: "form-control", required: true, pattern: "[0-9]*"  %>
     <div class="invalid-feedback">Please enter your security code.</div>
   </div>
+
   <!-- Other form fields -->
-  <%= f.hidden_field :address_id, value: @address_id %>
+  <%= f.hidden_field :address_id, value: params[:address_id] %>
+  <% if params[:order_id].present? %>
+    <%= f.hidden_field :order_id, value: params[:order_id] %>
+  <% end %>
+
   <!-- Button to submit the form -->
   <%= f.submit "Review Order", class: "btn btn-primary" %>
   <% end %>

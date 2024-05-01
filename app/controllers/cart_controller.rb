@@ -40,11 +40,11 @@ class CartController < ApplicationController
     cart_item = CartItem.find(params[:id])
     if cart_item.cart == current_user.cart
       cart_item.destroy
-      flash[:success] = "zord has been removed from the cart."
+      flash[:success] = "Zord has been removed from the cart."
     else
-      flash[:error] = "You can't remove an zord"
+      flash[:error] = "Failed removing from the cart"
     end
-    redirect_to cart_url 
+    redirect_to cart_url
   end
 
 end

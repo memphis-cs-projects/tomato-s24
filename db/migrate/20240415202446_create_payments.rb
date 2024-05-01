@@ -4,6 +4,7 @@ class CreatePayments < ActiveRecord::Migration[7.0]
       t.string :card_type
       t.integer :card_number
       t.date :expiry_date
+      t.references :user, foreign_key: true
 
       t.timestamps
     end
