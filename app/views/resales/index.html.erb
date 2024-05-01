@@ -1,7 +1,7 @@
 <!-- app/views/resales/index.html.erb -->
 
 <div class="container mt-5">
-  <h1 class="mb-4">All Resale Requests</h1>
+  <h1 class="mb-4">All resale requests</h1>
 
   <div class="row">
     <% @resales.each do |resale| %>
@@ -18,7 +18,7 @@
             <p class="card-text">New Price: <%= number_to_currency(resale.new_price) %></p>
             <p class="card-text">Condition: <%= resale.condition %></p>
             <p class="card-text">Status: <%= resale.status %></p>
-            <% if resale.status != "approved" %>
+            <% if resale.status != "Approved" %>
               <%= button_to "Remove", resale_path(resale), method: :delete, data: { confirm: "Are you sure you want to remove this resale request?" }, class: "btn btn-danger" %><br>
             <% else %>
               <%= button_to "Remove", resale_path(resale), method: :delete, class: "btn btn-danger", disabled: true, title: "Resale request has been approved and cannot be removed" %><br>

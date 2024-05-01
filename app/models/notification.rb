@@ -26,7 +26,7 @@
 #
 class Notification < ApplicationRecord
 
-  #attribute :status, :string, default: 'Customization-Approved'
+  #attribute :status, :string, default: 'Approved'
   belongs_to(
     :user,
     class_name: 'User',
