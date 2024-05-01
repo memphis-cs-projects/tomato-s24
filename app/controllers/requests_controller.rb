@@ -108,7 +108,7 @@ class RequestsController < ApplicationController
     @zord.ability = @request.ability
     @zord.theme = @request.theme
     @notification.subject = "Vendor's Reply about your Request" + @request.id.to_s
-    @notification.status = "Customization-Rejected"
+    @notification.status = "Rejected"
     @notification.zord =@zord
     @notification.request = @request
     if @notification.save
