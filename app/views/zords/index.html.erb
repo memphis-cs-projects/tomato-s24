@@ -82,14 +82,10 @@
           <div class="col-md-9 mb-1 mt-1">
             <div class="card-body">
               <% if zord.limited? %>
-<<<<<<< HEAD
-                <p class="card-text mb-1"><strong>Limited Edition: </strong>Yes </p>
-=======
                 <h5 class="card-title"><i class="bi bi-gem"></i><%= zord.name %></h5>
-                <p class="card-text mb-1"><strong>Limited:</strong>Yes </p>
+                <p class="card-text mb-1"><strong>Limited Edition: </strong>Yes </p>
               <% else %>
                 <h5 class="card-title"><%= zord.name %></h5>
->>>>>>> 0b622bc149a95fdb99f55227a9a88b775cd25fad
               <% end  %>
               <% if zord.used? %>
               <p class="card-text text-danger">Used/Resell</p>
