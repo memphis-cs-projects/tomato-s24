@@ -64,6 +64,18 @@ class BidsController < ApplicationController
   def destroy
     @bid = Bid.find(params[:bid_id])
     @zord = Zord.find(@bid.zord_id)
+    bids = Bid.where(zord_id: @zord.id).pluck(:id)
+    UserRegistration.where(bid_id: bids).delete_all if bids.any?
+    Bid.where(id: bids).delete_all if bids.any?
+    order_items = OrderItem.where(zord_id: @zord.id).pluck(:id)
+    Review.where(order_item_id: order_items).delete_all if order_items.any?
+    OrderItem.where(id: order_items).delete_all if order_items.any?
+    resale = Resale.where(zord_id: @zord.id)
+    resale.delete_all if resale.any?
+    notification = notification.where(zord_id: @zord.id)
+    notification.delete_all if notification.any?
+    cart_items = CartItem.where(zord_id: @zord.id)
+    cart_items.delete_all if cart_items.any?
     @zord.destroy
     flash[:success] = "Bid Successfully deleted along with Zord"
     redirect_to all_bids_path

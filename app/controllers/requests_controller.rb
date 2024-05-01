@@ -23,8 +23,20 @@ class RequestsController < ApplicationController
     end
   end
   def show
-    @request = Request.find(params[:id])
-    render :show
+    @request = Request.find_by(id: params[:id])
+    if @request
+      if @request.user != current_user
+        @requests = current_user.requests.where(status: 'Pending')
+        flash.now[:error] = "You cannot access this request"
+        render :all_requests
+      else
+        render :show
+      end
+    else
+      @requests = current_user.requests.where(status: 'Pending')
+        flash.now[:error] = "You cannot access this request"
+        render :all_requests
+    end
   end
   def edit
     @request = Request.find(params[:id])
@@ -108,7 +120,7 @@ class RequestsController < ApplicationController
     @zord.ability = @request.ability
     @zord.theme = @request.theme
     @notification.subject = "Vendor's Reply about your Request" + @request.id.to_s
-    @notification.status = "Customization-Rejected"
+    @notification.status = "Rejected"
     @notification.zord =@zord
     @notification.request = @request
     if @notification.save
