@@ -40,6 +40,14 @@ class User < ApplicationRecord
     inverse_of: :user,
     dependent: :destroy
   )
+
+  has_many(
+    :reviews,
+    class_name: 'Review',
+    foreign_key: 'user_id',
+    inverse_of: :user,
+    dependent: :destroy
+  )
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,

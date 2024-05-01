@@ -8,6 +8,7 @@ class ZordsController < ApplicationController
     else
       @q = Zord.where(limited: false).ransack(params[:q] || {})
     end
+
     @zords = @q.result(distinct: true)
     @zords = params[:q] && params[:q][:s].present? ? @zords.order(params[:q][:s]) : @zords.order(:id)
     render :index
@@ -15,7 +16,10 @@ class ZordsController < ApplicationController
 
   def show
     @zord = Zord.find(params[:id])
-    render :show
+    @reviews = @zord.reviews
+    total_rating = @reviews.sum(:rating)
+    @average_rating = total_rating.to_f / @reviews.length
+    @zord.avg_rating = params[:average_rating].present? ? params[:average_rating] : @average_rating
   end
 
 
@@ -77,6 +81,18 @@ class ZordsController < ApplicationController
 
   def destroy
     @zord = Zord.find(params[:id])
+    bids = Bid.where(zord_id: @zord.id).pluck(:id)
+    UserRegistration.where(bid_id: bids).delete_all if bids.any?
+    Bid.where(id: bids).delete_all if bids.any?
+    order_items = OrderItem.where(zord_id: @zord.id).pluck(:id)
+    Review.where(order_item_id: order_items).delete_all if order_items.any?
+    OrderItem.where(id: order_items).delete_all if order_items.any?
+    resale = Resale.where(zord_id: @zord.id)
+    resale.delete_all if resale.any?
+    notification = Notification.where(zord_id: @zord.id)
+    notification.delete_all if notification.any?
+    cart_items = CartItem.where(zord_id: @zord.id)
+    cart_items.delete_all if cart_items.any?
     @zord.destroy
     flash[:success] = 'Zord was successfully deleted!'
     redirect_to zords_url

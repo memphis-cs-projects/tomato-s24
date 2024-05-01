@@ -159,6 +159,19 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_30_235845) do
     t.index ["zord_id"], name: "index_resales_on_zord_id"
   end
 
+  create_table "reviews", force: :cascade do |t|
+    t.string "review_message"
+    t.integer "rating"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "order_item_id"
+    t.bigint "user_id"
+    t.bigint "zord_id"
+    t.index ["order_item_id"], name: "index_reviews_on_order_item_id"
+    t.index ["user_id"], name: "index_reviews_on_user_id"
+    t.index ["zord_id"], name: "index_reviews_on_zord_id"
+  end
+
   create_table "user_registrations", force: :cascade do |t|
     t.bigint "bid_id", null: false
     t.bigint "user_id", null: false
@@ -191,6 +204,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_30_235845) do
     t.decimal "price"
     t.text "description"
     t.integer "quantity"
+    t.decimal "avg_rating"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "limited", default: false
@@ -215,6 +229,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_30_235845) do
   add_foreign_key "requests", "users"
   add_foreign_key "resales", "users"
   add_foreign_key "resales", "zords"
+  add_foreign_key "reviews", "order_items"
+  add_foreign_key "reviews", "users"
+  add_foreign_key "reviews", "zords"
   add_foreign_key "user_registrations", "bids"
   add_foreign_key "user_registrations", "users"
 end

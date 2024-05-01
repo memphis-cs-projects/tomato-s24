@@ -23,7 +23,7 @@
             <%= sort_link(@q, :capacity, "Capacity") %>
           </div>
         </div>
-
+       
 
         <!--These are for Filtering -->
 
@@ -81,9 +81,11 @@
           <% end %>
           <div class="col-md-9 mb-1 mt-1">
             <div class="card-body">
-              <h5 class="card-title"><%= zord.name %></h5>
               <% if zord.limited? %>
+                <h5 class="card-title"><i class="bi bi-gem"></i><%= zord.name %></h5>
                 <p class="card-text mb-1"><strong>Limited:</strong>Yes </p>
+              <% else %>
+                <h5 class="card-title"><%= zord.name %></h5>
               <% end  %>
               <% if zord.used? %>
               <p class="card-text text-danger">Used/Resell</p>
@@ -92,6 +94,12 @@
               <p class="card-text mb-1"><strong>Material:</strong><%= zord.material %></p>
               <p class="card-text mb-1"><strong>Theme:</strong><%= zord.theme %></p>
               <p class="card-text mb-1"><strong>Description:</strong><%= zord.description %></p>
+              <% @reviews = zord.reviews %>
+              <% total_rating = @reviews.sum(:rating) %>
+              <% @average_rating = total_rating.to_f / @reviews.length %>
+              <% zord.avg_rating = params[:average_rating].present? ? params[:average_rating] : @average_rating %>
+              <% (zord.avg_rating = zord.avg_rating.to_f.nan? ? 0 : zord.avg_rating).round(1) %>
+              <%= rating_stars(zord.avg_rating)%>
               <div class="mt-3 mb-3">
 
                 <%= link_to "View Details", zord_path(zord), class: "btn btn-primary me-2" %>

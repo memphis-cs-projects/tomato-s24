@@ -34,11 +34,12 @@ zord1 = Zord.create!(
   ability: "Lightning Strike",
   price: 50,
   description: "A mighty MegaZord capable of summoning thunder and delivering devastating lightning strikes to its enemies.",
-  quantity: 15
+  quantity: 15,
+  avg_rating: 4
 )
 
-zord1.figure_image.attach(io: File.open(Rails.root.join('app/assets/images/zord1.jpeg')),
-filename: 'zord1.jpeg')
+zord1.figure_image.attach(io: File.open(Rails.root.join('app/assets/images/zord1.jpg')),
+filename: 'zord1.jpg')
 
 zord2 = Zord.create!(
   name: "Cosmic Guardian",
@@ -48,11 +49,12 @@ zord2 = Zord.create!(
   ability: "Cosmic Shield",
   price: 80,
   description: "An otherworldly MegaZord that safeguards the universe with its impenetrable cosmic shield, protecting all that is good from cosmic threats.",
-  quantity: 10
+  quantity: 10,
+  avg_rating: 3.5
 )
 
-zord2.figure_image.attach(io: File.open(Rails.root.join('app/assets/images/zord2.jpeg')),
-filename: 'zord2.jpeg')
+zord2.figure_image.attach(io: File.open(Rails.root.join('app/assets/images/zord2.jpg')),
+filename: 'zord2.jpg')
 
 zord3 = Zord.create!(
   name: "Shadow Blade",
@@ -62,7 +64,8 @@ zord3 = Zord.create!(
   ability: "Shadow Cloak",
   price: 30,
   description: "A sleek and stealthy MegaZord that moves through the shadows, striking swiftly with its razor-sharp blades to vanquish darkness wherever it lurks.",
-  quantity: 15
+  quantity: 15,
+  avg_rating: 5
 )
 
 zord3.figure_image.attach(io: File.open(Rails.root.join('app/assets/images/zord3.jpg')),
@@ -76,7 +79,8 @@ zord4 = Zord.create!(
   ability: "Phoenix Rebirth",
   price: 70,
   description: "A fiery MegaZord embodying the legendary phoenix, capable of rising from its ashes and unleashing blazing fury upon its adversaries.",
-  quantity: 5
+  quantity: 5,
+  avg_rating: 4
 )
 
 zord4.figure_image.attach(io: File.open(Rails.root.join('app/assets/images/zord4.jpg')),
@@ -91,11 +95,12 @@ zord5 = Zord.create!(
   price: 170,
   description: "A colossal MegaZord of unparalleled might, traversing the galaxies and delivering earth-shaking slams that shake the very fabric of the cosmos.",
   quantity: 1,
+  avg_rating: 5,
   limited: true
 )
 
-zord5.figure_image.attach(io: File.open(Rails.root.join('app/assets/images/zord2.jpeg')),
-filename: 'zord2.jpeg')
+zord5.figure_image.attach(io: File.open(Rails.root.join('app/assets/images/zord5.jpg')),
+filename: 'zord5.jpg')
 
 zord6 = Zord.create!(
   name: "Nebula Nova",
@@ -106,11 +111,28 @@ zord6 = Zord.create!(
   price: 300,
   description: "A magnificent MegaZord hailing from the depths of space, harnessing the power of cosmic nebulae to create dazzling bursts of energy that dazzle and overwhelm its foes.",
   quantity: 1,
+  avg_rating: 4.8,
   limited: true
 )
 
-zord6.figure_image.attach(io: File.open(Rails.root.join('app/assets/images/zord2.jpeg')),
-filename: 'zord4.jpg')
+zord6.figure_image.attach(io: File.open(Rails.root.join('app/assets/images/zord6.jpg')),
+filename: 'zord6.jpg')
+
+zord7 = Zord.create!(
+  name: "Frostbite Fury",
+  theme: "Arctic Tundra",
+  material: "Icesteel",
+  capacity: 12,
+  ability: "Frostbite Blizzard",
+  price: 280,
+  description: "The Frostbite Fury Zord reigns supreme in the frozen wastelands, wielding the power of ice and snow to freeze its enemies solid. With its chilling presence, it strikes fear into the hearts of all who oppose it.",
+  quantity: 1,
+  avg_rating: 4.6,
+  limited: true
+)
+
+zord7.figure_image.attach(io: File.open(Rails.root.join('app/assets/images/zord7.jpg')),
+filename: 'zord7.jpg')
 
 #Bids
 bid1 = Bid.create!(
@@ -128,10 +150,10 @@ bid2 = Bid.create!(
 )
 
 bid3 = Bid.create!(
-  zord: zord5,
+  zord: zord7,
   start_date: '2024-04-12',
   end_date: '2024-04-18',
-  base_price: 300
+  base_price: 500
 )
 
 #Requests
@@ -210,10 +232,42 @@ user_registration6 = UserRegistration.create!(
 )
 
 #Notifications
-Notification.create!(
+notification_1 = Notification.create!(
   subject: 'Message from Vendor',
   message: 'Welcome Message',
   request: request2,
-  user: user2,
+  user: user1,
   zord: zord5
+)
+
+address_1 = Address.create!(
+  street_address: '3655 Southern Ave',
+  city: 'MEM',
+  state: 'TN',
+  zipcode: '38111'
+)
+
+payment_1 = Payment.create!(
+  card_type: 'Credit Card',
+  card_number: '6',
+  expiry_date: '1'
+)
+
+order1 = Order.create!(
+  user: user1,
+  address: address_1,
+  payment: payment_1,
+)
+
+order_item_1 = OrderItem.create!(
+  order: order1,
+  zord: zord2,
+  quantity: 3
+)
+
+Review.create!(
+  order_item: order_item_1,
+  user: user1,
+  zord: zord2,
+  rating: 4
 )

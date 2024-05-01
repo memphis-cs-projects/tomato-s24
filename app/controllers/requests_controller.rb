@@ -23,8 +23,20 @@ class RequestsController < ApplicationController
     end
   end
   def show
-    @request = Request.find(params[:id])
-    render :show
+    @request = Request.find_by(id: params[:id])
+    if @request
+      if @request.user != current_user
+        @requests = current_user.requests.where(status: 'Pending')
+        flash.now[:error] = "You cannot access this request"
+        render :all_requests
+      else
+        render :show
+      end
+    else
+      @requests = current_user.requests.where(status: 'Pending')
+        flash.now[:error] = "You cannot access this request"
+        render :all_requests
+    end
   end
   def edit
     @request = Request.find(params[:id])
@@ -100,15 +112,24 @@ class RequestsController < ApplicationController
     @request = Request.find(params[:id])
     @notification=Notification.new(params.require(:request).permit(:message))
     @notification.user = @request.user
+    @zord = Zord.new(params.require(:request).permit(:price, :description, :name, :figure_image))
+    @notification = Notification.new(params.require(:request).permit(:message))
+    @notification.user = @request.user
+    @zord.material = @request.material
+    @zord.capacity = @request.capacity
+    @zord.ability = @request.ability
+    @zord.theme = @request.theme
     @notification.subject = "Vendor's Reply about your Request" + @request.id.to_s
+    @notification.status = "Rejected"
+    @notification.zord =@zord
     @notification.request = @request
-    @notification.status = "Customization-Rejected"
     if @notification.save
       flash[:success] = 'Request Rejected!'
       #@request.destroy
       @request.reload
       @request.status = 'Rejected'
       @request.save
+      #@zord.destroy
       redirect_to requests_vendor_requests_path
     else
       flash.now[:error] = @notification.errors.full_messages.join(', ')

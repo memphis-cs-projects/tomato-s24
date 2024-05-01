@@ -50,7 +50,6 @@ Rails.application.routes.draw do
   # Route for deleting a resale request
   delete 'resales/:id', to: 'resales#destroy'
   post 'resale_approval_request/:id', to: 'resales#resell_approval_request', as: 'resell_approval_request'
-  
   get '/vendor/resales', to: 'resales#vendor_index', as: 'vendor_index_resales'
   patch '/vendor/resales/:id/update_status', to: 'resales#update_status', as: 'update_status_resale'
 
@@ -70,9 +69,11 @@ Rails.application.routes.draw do
  patch 'requests/:id/reject', to: 'requests#decision_reject_request'
  get 'notifications', to:'notifications#all_notifications', as: 'all_notifications'
  get 'notifications/:id', to: 'notifications#show_notification', as: 'notification'
-
+ get 'reviews', to: 'reviews#all_reviews', as: 'all_reviews'
+ get 'reviews/new_review/:order_item_id/:zord_id', to: 'reviews#new_review', as: 'review_new'
+ post 'reviews', to: 'reviews#create_new_review', as: 'create_new_review'
  post 'winner/send_notification/:bid_id', to: 'notifications#winner_notification', as: 'winner_notification'
- 
+
   # Devise routes for user sign-in, sign-up, sign-out, etc.
   devise_for :users
 
