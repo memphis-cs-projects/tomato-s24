@@ -1,8 +1,3 @@
-
-<div class="mb-1">
-  <%= link_to 'Back', zords_path, class: "btn btn-primary me-5" %>
-</div>
-
 <div class="row">
   <div class="col-md-4">
     <% if @zord.figure_image.attached? %>
@@ -11,20 +6,19 @@
   </div>
   <div class="col-md-4">
     <h1><%= @zord.name %></h1>
-    <p><strong>Description:</strong> <%= @zord.description %></p>
-    <p><strong>Ability:</strong> <%= @zord.ability %></p>
-    <p><strong>Capacity:</strong> <%= @zord.capacity %></p>
-    <p><strong>Material:</strong> <%= @zord.material %></p>
-    <p><strong>Price:</strong> <%= number_to_currency(@zord.price) %></p>
+    <p><strong>Price: </strong><%= number_to_currency(@zord.price) %></p>
+    <p><strong>Material: </strong><%= @zord.material %></p>
+    <p><strong>Theme: </strong><%= @zord.theme %></p>
+    <p><strong>Capacity: </strong><%= @zord.capacity %></p>
+    <p><strong>Ability: </strong><%= @zord.ability %></p>
+    <p><strong>Description: </strong><%= @zord.description %></p>
     <% @zord.avg_rating = @zord.avg_rating.to_f.nan? ? 0 : @zord.avg_rating %>
     <p><%= rating_stars(@zord.avg_rating)%></p>
-    <% if current_user && current_user.vendor? %>
-        <p><strong>Quantity:</strong> <%= @zord.quantity %></p>
-    <% end %>
-    <p><strong>Theme:</strong> <%= @zord.theme %></p>
-  </div>
 
-  
+    <% if current_user && current_user.vendor? %>
+        <p><strong>Quantity: </strong><%= @zord.quantity %></p>
+    <% end %>
+  </div>
 </div>
 
 <% if @reviews.present? %>
@@ -43,14 +37,25 @@
 
 
 <% if current_user && current_user.vendor? %>
-    <div class="mt-1">
-        <%= link_to 'Edit', edit_zord_path, class: "btn btn-success" %> 
+  <div class="row mt-3">
+    <div class="col">
+      <%= link_to 'Back', zords_path, class: "btn btn-primary me-2" %>
     </div>
+    <div class="col">
+      <%= link_to 'Edit', edit_zord_path, class: "btn btn-success" %>
+    </div>
+  </div>
 <% end %>
 
+
 <% if current_user && !current_user.vendor? %>
-    <div class = "mt-1">
+    <div class = "row mt-3">
+      <div class="col">
+        <%= link_to 'Back', zords_path, class: "btn btn-primary me-2" %>
+      </div>
+      <div class="col">
         <%= button_to "Add to Cart", add_to_cart_path(@zord),method: :post, class: "btn btn-success" %>
+      </div>
     </div>
 <% end %>
 

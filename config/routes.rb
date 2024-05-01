@@ -39,8 +39,7 @@ Rails.application.routes.draw do
   post 'create_address', to: 'orders#create_address', as:'create_address'
   get 'order/payment', to: 'orders#payment', as: 'payment'
   post 'create_payment', to: 'orders#create_payment', as:'create_payment'
-  get 'order/checkout', to: 'orders#checkout', as: 'checkout'
-  get 'order/:id/review', to: 'orders#review', as: 'review'
+  get 'order/review', to: 'orders#review', as: 'review'
   get 'order/:id/place', to: 'orders#place', as: 'place'
 
   get 'resales', to: 'resales#index', as: 'resales_index'

@@ -1,5 +1,5 @@
 <div class="container mt-5">
-  <h1 class="mb-4">All Resale Requests</h1>
+  <h1 class="mb-4">All resale requests</h1>
 
   <div class="row">
     <% @resales.each do |resale| %>
@@ -15,7 +15,7 @@
             <p class="card-text">User: <%= resale.user.email %></p>
             <p class="card-text">New Price: <%= number_to_currency(resale.new_price) %></p>
             <p class="card-text">Condition: <%= resale.condition %></p>
-            <% if resale.status == "approved" %>
+            <% if resale.status == "Approved" %>
               <%= form_tag(resell_approval_request_path(resale), method: :post, multipart: true) do %>
                 <!-- Add fields for other zord attributes -->
                 <div class="form-group">

@@ -55,8 +55,10 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_30_235845) do
     t.string "city"
     t.string "state"
     t.integer "zipcode"
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_addresses_on_user_id"
   end
 
   create_table "bids", force: :cascade do |t|
@@ -126,8 +128,10 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_30_235845) do
     t.string "card_type"
     t.integer "card_number"
     t.date "expiry_date"
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_payments_on_user_id"
   end
 
   create_table "requests", force: :cascade do |t|
@@ -214,6 +218,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_30_235845) do
   add_foreign_key "account_balances", "users"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "addresses", "users"
   add_foreign_key "bids", "zords"
   add_foreign_key "cart_items", "carts"
   add_foreign_key "cart_items", "zords"
@@ -226,6 +231,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_30_235845) do
   add_foreign_key "orders", "addresses"
   add_foreign_key "orders", "payments"
   add_foreign_key "orders", "users"
+  add_foreign_key "payments", "users"
   add_foreign_key "requests", "users"
   add_foreign_key "resales", "users"
   add_foreign_key "resales", "zords"

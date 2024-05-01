@@ -244,13 +244,15 @@ address_1 = Address.create!(
   street_address: '3655 Southern Ave',
   city: 'MEM',
   state: 'TN',
-  zipcode: '38111'
+  zipcode: '38111',
+  user: user1
 )
 
 payment_1 = Payment.create!(
   card_type: 'Credit Card',
-  card_number: '6',
-  expiry_date: '1'
+  card_number: '1234567890',
+  expiry_date: Date.new(2024, 1, 31),
+  user: user1
 )
 
 order1 = Order.create!(

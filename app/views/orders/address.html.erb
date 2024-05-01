@@ -1,6 +1,33 @@
-<h1>Order Checkout</h1>
+<h2>Order Checkout - Shipping Information</h2>
 
-<h3>Address Information</h3>
+<% if @addresses.empty? %>
+  <p><%= flash.now[:alert] %></p>
+<% else %>
+  <h3>Saved addresses</h3>
+  <div class="row">
+    <% @addresses.each do |address| %>
+      <div class="col-md-4 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <p class="card-text"><strong>Street Address:</strong> <%= address.street_address %></p>
+            <p class="card-text"><strong>City:</strong> <%= address.city %></p>
+            <p class="card-text"><strong>State:</strong> <%= address.state %></p>
+            <p class="card-text"><strong>Zipcode:</strong> <%= address.zipcode %></p>
+            <%= form_tag(payment_path, method: :get) do %>
+              <%= hidden_field_tag 'address_id', address.id %>
+              <% if params[:order_id].present? %>
+                <%= hidden_field_tag 'order_id', params[:order_id]%>
+              <% end %>
+              <%= submit_tag 'Use this address', class: 'btn btn-primary' %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
+<h3>Add new address: </h3>
 <div id="address-section" class="container">
   <%= bootstrap_form_with model: @address, url: create_address_path, method: :post, data: { turbo: false } do |f| %>
     <div class="mb-3">
@@ -9,13 +36,13 @@
     </div>
 
     <div class="mb-3">
-      <%= f.text_field :city, class: "form-control", required: true %>
+      <%= f.text_field :city, class: "form-control", required: true, pattern: "[A-Za-z]+" %>
       <div class="invalid-feedback">Please enter your city.</div>
     </div>
 
     <div class="row">
       <div class="col-md-6 mb-3">
-        <%= f.text_field :state, class: "form-control", required: true %>
+        <%= f.text_field :state, class: "form-control", required: true, pattern: "[A-Za-z]+" %>
         <div class="invalid-feedback">Please provide a valid state.</div>
       </div>
 
@@ -25,7 +52,11 @@
       </div>
     </div>
 
+    <% if params[:order_id].present? %>
+      <%= f.hidden_field :order_id, value: params[:order_id] %>
+    <% end %>
+
     <!-- Button to submit the form -->
-    <%= f.submit "Continue to Payment", class: "btn btn-primary" %>
+    <%= f.submit "Save & Continue", class: "btn btn-primary" %>
   <% end %>
 </div>

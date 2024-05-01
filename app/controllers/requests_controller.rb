@@ -86,7 +86,7 @@ class RequestsController < ApplicationController
     @notification.zord = @zord
     @request.save
     @notification.message += "_"+ @zord.name
-    @notification.status = "Customization-Approved"
+    @notification.status = "Approved"
     @zord.save
     @zord = Zord.find(params[:id])
     if @zord.save
