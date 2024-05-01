@@ -47,7 +47,7 @@
     
 
   <div class="mb-3">
-    <%= f.text_field :card_number, class: "form-control", required: true, pattern: "[0-9]*"   %>
+    <%= f.number_field :card_number, class: "form-control", required: true, pattern: "[0-9]*"   %>
     <div class="invalid-feedback">Please enter your card number.</div>
   </div>
 
@@ -61,7 +61,7 @@
   </div>
 
   <div class="mb-3">
-    <%= f.text_field :security_code, class: "form-control", required: true, pattern: "[0-9]*"  %>
+    <%= f.number_field :security_code, class: "form-control", required: true, pattern: "[0-9]*"  %>
     <div class="invalid-feedback">Please enter your security code.</div>
   </div>
 

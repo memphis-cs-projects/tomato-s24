@@ -1,8 +1,20 @@
 class NotificationsController < ApplicationController
+  before_action :authenticate_user!
 
   def all_notifications
     @notifications = current_user.notifications
     render :all_notifications
+  end
+
+  def show_notification
+    @notification = Notification.find(params[:id])
+    if @notification.subject.include?("Winner of Bidding for ")
+      @zord = @notification.zord
+      notification_message = @notification.message
+      bid_amount = notification_message.match(/The bid amount is (\d+)/)[1].to_i
+      @zord.update(price: bid_amount)
+    end
+    render :show_notification
   end
 
   def winner_notification
@@ -17,18 +29,10 @@ class NotificationsController < ApplicationController
     @notification.user = user
     @notification.request_id = 1
     @notification.subject = "Winner of Bidding for " + @bid.zord.name
+    @notification.status = "Notification sent"
+    @notification.zord = @bid.zord
+    @bid.update(start_date: Date.today, end_date: Date.today)
 
-    # zord = Zord.find(params[:id])
-    # cart = user.cart || user.create_cart
-    # cart_item = cart.cart_items.build(zord: zord, quantity: 1)
-
-    # if cart_item.save
-    #   flash[:success] = "#{zord.name} has been added to the cart."
-    #   redirect_to zords_url
-    # else
-    #   flash.now[:error] = 'Failed adding to the cart.'
-    #   render :new, status: :unprocessable_entity
-    # end
     if @notification.save
       flash[:success] = "Notification sent to " + user.email
       redirect_to all_bids_path
@@ -37,5 +41,19 @@ class NotificationsController < ApplicationController
       redirect_to all_bids_path, status: :unprocessable_entity
     end
   end
+
+  def view_winner_notification
+    @notification = Notification.find(params[:notification_id])
+    notification_subject = @notification.subject
+    zord_name = notification_subject.sub("Winner of Bidding for ", "")
+    @zord = @notification.zord
+    bid = Bid.where(zord: @zord)
+    notification_message = @notification.message
+    bid_amount = notification_message.match(/The bid amount is (\d+)/)[1].to_i
+    @zord.update(price: bid_amount)
+
+    render :view_winner_notification
+  end
+
 
 end

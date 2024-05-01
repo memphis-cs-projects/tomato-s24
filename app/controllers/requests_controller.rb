@@ -23,8 +23,20 @@ class RequestsController < ApplicationController
     end
   end
   def show
-    @request = Request.find(params[:id])
-    render :show
+    @request = Request.find_by(id: params[:id])
+    if @request
+      if @request.user != current_user
+        @requests = current_user.requests.where(status: 'Pending')
+        flash.now[:error] = "You cannot access this request"
+        render :all_requests
+      else
+        render :show
+      end
+    else
+      @requests = current_user.requests.where(status: 'Pending')
+        flash.now[:error] = "You cannot access this request"
+        render :all_requests
+    end
   end
   def edit
     @request = Request.find(params[:id])
@@ -64,15 +76,19 @@ class RequestsController < ApplicationController
     @zord = Zord.new(params.require(:request).permit(:price, :description, :name, :figure_image))
     @notification = Notification.new(params.require(:request).permit(:message))
     @notification.user = @request.user
-    @notification.subject = "Vendor's Reply about your Request"  + @request.id.to_s
-    @notification.request = @request
-    @zord.capacity = @request.capacity
     @zord.material = @request.material
+    @zord.capacity = @request.capacity
     @zord.ability = @request.ability
     @zord.theme = @request.theme
     @request.status = 'Approved'
+    @notification.subject = "Vendor's Reply about your Request"  + @request.id.to_s
+    @notification.request = @request
+    @notification.zord = @zord
     @request.save
-
+    @notification.message += "_"+ @zord.name
+    @notification.status = "Customization-Approved"
+    @zord.save
+    @zord = Zord.find(params[:id])
     if @zord.save
       if @notification.save
         flash[:success] = 'New Request successfully added!'
@@ -96,7 +112,16 @@ class RequestsController < ApplicationController
     @request = Request.find(params[:id])
     @notification=Notification.new(params.require(:request).permit(:message))
     @notification.user = @request.user
+    @zord = Zord.new(params.require(:request).permit(:price, :description, :name, :figure_image))
+    @notification = Notification.new(params.require(:request).permit(:message))
+    @notification.user = @request.user
+    @zord.material = @request.material
+    @zord.capacity = @request.capacity
+    @zord.ability = @request.ability
+    @zord.theme = @request.theme
     @notification.subject = "Vendor's Reply about your Request" + @request.id.to_s
+    @notification.status = "Rejected"
+    @notification.zord =@zord
     @notification.request = @request
     if @notification.save
       flash[:success] = 'Request Rejected!'
@@ -104,6 +129,7 @@ class RequestsController < ApplicationController
       @request.reload
       @request.status = 'Rejected'
       @request.save
+      #@zord.destroy
       redirect_to requests_vendor_requests_path
     else
       flash.now[:error] = @notification.errors.full_messages.join(', ')

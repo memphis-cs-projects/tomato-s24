@@ -5,9 +5,11 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <%= javascript_importmap_tags %>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
   </head>
 
   <body style="padding-top: 70px;">
@@ -37,7 +39,7 @@
                   <%= link_to "Add Limited Edition Zord", new_limited_path, class: "nav-link" %>
                 </li>
                 <li class="nav-item">
-                  <%= link_to "Manage Inventory", zords_path, class: "nav-link" %>
+                  <%= link_to "Manage resales", vendor_index_resales_path, class: "nav-link" %>
                 </li>
               <% else %>
                 <li class="nav-item">
@@ -48,6 +50,12 @@
                 </li>
                 <li class="nav-item">
                   <%= link_to "Orders", orders_path, class: "nav-link" %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to "Resales", resales_index_path, class: "nav-link" %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to "Account balance", account_balance_path, class: "nav-link" %>
                 </li>
                 <li class="nav-item">
                   <% cart_count = current_user.cart ?  current_user.cart.cart_items.count.to_s : "0" %>

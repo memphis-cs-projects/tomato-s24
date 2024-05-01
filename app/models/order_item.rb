@@ -22,4 +22,5 @@
 class OrderItem < ApplicationRecord
   belongs_to :order
   belongs_to :zord
+  has_many :reviews, dependent: :destroy
 end

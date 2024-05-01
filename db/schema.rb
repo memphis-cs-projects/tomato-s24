@@ -10,9 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_04_18_030231) do
+ActiveRecord::Schema[7.0].define(version: 2024_04_30_235845) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "account_balances", force: :cascade do |t|
+    t.decimal "balance", precision: 10, scale: 2, default: "0.0"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_account_balances_on_user_id"
+  end
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -83,12 +91,15 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_18_030231) do
   create_table "notifications", force: :cascade do |t|
     t.string "subject"
     t.string "message"
+    t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"
     t.bigint "request_id"
+    t.bigint "zord_id"
     t.index ["request_id"], name: "index_notifications_on_request_id"
     t.index ["user_id"], name: "index_notifications_on_user_id"
+    t.index ["zord_id"], name: "index_notifications_on_zord_id"
   end
 
   create_table "order_items", force: :cascade do |t|
@@ -140,6 +151,31 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_18_030231) do
     t.index ["user_id"], name: "index_requests_on_user_id"
   end
 
+  create_table "resales", force: :cascade do |t|
+    t.bigint "zord_id", null: false
+    t.bigint "user_id", null: false
+    t.decimal "new_price"
+    t.string "condition"
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_resales_on_user_id"
+    t.index ["zord_id"], name: "index_resales_on_zord_id"
+  end
+
+  create_table "reviews", force: :cascade do |t|
+    t.string "review_message"
+    t.integer "rating"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "order_item_id"
+    t.bigint "user_id"
+    t.bigint "zord_id"
+    t.index ["order_item_id"], name: "index_reviews_on_order_item_id"
+    t.index ["user_id"], name: "index_reviews_on_user_id"
+    t.index ["zord_id"], name: "index_reviews_on_zord_id"
+  end
+
   create_table "user_registrations", force: :cascade do |t|
     t.bigint "bid_id", null: false
     t.bigint "user_id", null: false
@@ -172,11 +208,14 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_18_030231) do
     t.decimal "price"
     t.text "description"
     t.integer "quantity"
+    t.decimal "avg_rating"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "limited", default: false
+    t.boolean "used"
   end
 
+  add_foreign_key "account_balances", "users"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "addresses", "users"
@@ -186,6 +225,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_18_030231) do
   add_foreign_key "carts", "users"
   add_foreign_key "notifications", "requests"
   add_foreign_key "notifications", "users"
+  add_foreign_key "notifications", "zords"
   add_foreign_key "order_items", "orders"
   add_foreign_key "order_items", "zords"
   add_foreign_key "orders", "addresses"
@@ -193,6 +233,11 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_18_030231) do
   add_foreign_key "orders", "users"
   add_foreign_key "payments", "users"
   add_foreign_key "requests", "users"
+  add_foreign_key "resales", "users"
+  add_foreign_key "resales", "zords"
+  add_foreign_key "reviews", "order_items"
+  add_foreign_key "reviews", "users"
+  add_foreign_key "reviews", "zords"
   add_foreign_key "user_registrations", "bids"
   add_foreign_key "user_registrations", "users"
 end

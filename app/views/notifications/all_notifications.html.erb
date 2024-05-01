@@ -16,6 +16,10 @@
       <tr>
         <td><%= notification.subject %></td>
         <td><%= notification.message %></td>
+        <td><%= link_to "Show Notification", notification_path(notification), class: 'btn btn-primary' %></td>
+        <td>
+        
+      </td>
         </tr>
     <% end %>
   </tbody>

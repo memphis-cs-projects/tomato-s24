@@ -39,11 +39,11 @@ class Request < ApplicationRecord
   dependent: :destroy)
   attribute :status, :string, default: 'Pending'
   validates :material, presence: true
-  MATERIAL_OPTIONS = [['select','select'],['Platinum', 'Platinum'], ['Kryptonite', 'Kryptonite'], ['Vibranium', 'Vibranium'], ['Silver', 'Silver'], ['Gold', 'Gold']]
+
   validates :ability, presence: true
-  ABILITY_OPTIONS = [['Elemental Powers', 'Elemental Powers'], ['Invisibility', 'Invisibility'], ['Teleportation', 'Teleportation'],['Lightning', 'Lightning'],['Ironfist', 'Ironfist']]
+
   validates :theme, presence: true
-  THEME_OPTIONS = [['select','select'],['Marvel', 'Marvel'], ['Bahubali', 'Bahubali'], ['Avatar', 'Avatar'],['DC','DC']]
+
   validates :capacity, presence: true
   CAPACITY_OPTIONS = [['1','1'],['5','5'],['10','10'],['15','15'],['20','20']]
 

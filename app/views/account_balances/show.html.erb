@@ -1,0 +1,9 @@
+<!-- app/views/users/show.html.erb -->
+
+<h1>User Profile</h1>
+<p>Email: <%= @user.email %></p>
+<% if @user.account_balance %>
+  <p>Balance: <%= number_to_currency(@user.account_balance.balance) %></p>
+<% else %>
+  <p>No account balance available</p>
+<% end %>

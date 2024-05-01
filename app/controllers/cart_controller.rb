@@ -12,7 +12,8 @@ class CartController < ApplicationController
 
   def add_to_cart
     # Find the zord based on the params
-    zord = Zord.find(params[:id])
+    zord = params[:zord_id].present? ? Zord.find(params[:zord_id]) : Zord.find(params[:id])
+    notification = params[:notification_id].present? ? Notification.find(params[:notification_id]) : nil
 
     # Find or create the user's cart
     cart = current_user.cart || current_user.create_cart
@@ -28,13 +29,18 @@ class CartController < ApplicationController
     end
 
     if cart_item.save
-      flash[:success] = "#{zord.name} has been added to the cart."
+      flash[:success] = "#{zord.name} #{notification&.message || 'has been added to the cart.'}"  # Use safe navigation (&.) to handle nil notification
+      if notification
+        notification.status = "Paid"
+        notification.save
+      end
       redirect_to zords_url
     else
       flash.now[:error] = 'Failed adding to the cart.'
       render :new, status: :unprocessable_entity
     end
   end
+
 
   def remove_from_cart
     cart_item = CartItem.find(params[:id])

@@ -32,10 +32,20 @@ class User < ApplicationRecord
   )
   has_many :user_registrations
   has_many :bids, through: :user_registrations, source: :bid
+  has_many :resales, dependent: :destroy
+  has_one :account_balance
 
   has_many(
     :notifications,
     class_name: 'Notification',
+    foreign_key: 'user_id',
+    inverse_of: :user,
+    dependent: :destroy
+  )
+
+  has_many(
+    :reviews,
+    class_name: 'Review',
     foreign_key: 'user_id',
     inverse_of: :user,
     dependent: :destroy

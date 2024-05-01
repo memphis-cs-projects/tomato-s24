@@ -9,7 +9,7 @@ class CreateZords < ActiveRecord::Migration[7.0]
       t.decimal :price
       t.text :description
       t.integer :quantity
-
+      t.decimal :avg_rating
       t.timestamps
     end
   end
