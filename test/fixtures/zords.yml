@@ -13,6 +13,7 @@
 #  price       :decimal(, )
 #  quantity    :integer
 #  theme       :string
+#  used        :boolean
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #
