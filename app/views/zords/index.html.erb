@@ -85,6 +85,9 @@
               <% if zord.limited? %>
                 <p class="card-text mb-1"><strong>Limited:</strong>Yes </p>
               <% end  %>
+              <% if zord.used? %>
+              <p class="card-text text-danger">Used/Resell</p>
+            <% end %>
               <p class="card-text mb-1">Price: <%= number_to_currency(zord.price) %></p>
               <p class="card-text mb-1"><strong>Material:</strong><%= zord.material %></p>
               <p class="card-text mb-1"><strong>Theme:</strong><%= zord.theme %></p>

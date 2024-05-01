@@ -71,6 +71,40 @@ class ResalesController < ApplicationController
       @resale.destroy
       redirect_to orders_path, notice: "Resale request has been removed."
     end
+
+    def resell_approval_request
+      @resale = Resale.find(params[:id])
+      
+      if @resale.status == "approved"
+        # Add logic here to create the resell zord based on @resale data
+        # For example:
+        @zord = Zord.new(
+          name: @resale.zord.name,
+          description: @resale.zord.description,
+          price: @resale.new_price,
+          material: @resale.zord.material,
+          ability: @resale.zord.ability,
+          capacity: @resale.zord.capacity,
+          theme: @resale.zord.theme,
+          used: true
+        )
+        if params[:image].present?
+          @zord.figure_image.attach(params[:image])
+        end
+    
+        if @zord.save
+          flash[:success] = 'Resale Zord successfully added!'
+          redirect_to zords_path
+        else
+          flash[:error] = 'Failed to add Resale Zord'
+          redirect_to resales_index_path
+        end
+      else
+        flash[:error] = 'Cannot add Resale Zord for a non-approved resale'
+        redirect_to resales_index_path
+      end
+    end
+    
   
   
     private
