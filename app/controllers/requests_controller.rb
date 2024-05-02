@@ -85,13 +85,13 @@ class RequestsController < ApplicationController
     @notification.request = @request
     @notification.zord = @zord
     @request.save
-    @notification.message += "_"+ @zord.name
+    @notification.message = @request.status + " - "+ @zord.name
     @notification.status = "Approved"
     @zord.save
     @zord = Zord.find(params[:id])
     if @zord.save
       if @notification.save
-        flash[:success] = 'New Request successfully added!'
+        flash[:success] = 'New Request successfully approved!'
         redirect_to zords_path, status: :see_other
       else
         flash.now[:error] = @notification.errors.full_messages.join(', ')
