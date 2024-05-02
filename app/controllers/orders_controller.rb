@@ -114,8 +114,9 @@ class OrdersController < ApplicationController
     @order.status = 'Placed'
     if @order.save
       # Empty the user's cart once the order is successfully placed
-      current_user.cart.cart_items.destroy_all
-
+      if params[:reorder] == "false"
+        current_user.cart.cart_items.destroy_all
+      end
       render :place
     else
       redirect_to review_path(@order), notice: 'Error occured while placing the order. Please try again later.'
