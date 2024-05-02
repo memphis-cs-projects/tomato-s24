@@ -80,7 +80,7 @@
 
             <div class="col-md-3">
               <!-- Place Order Button -->
-              <%= link_to "Place Order", place_path(@order), class: "btn btn-success" %>
+              <%= link_to "Place Order", place_path(@order, reorder: params[:order_id].present?), class: "btn btn-success" %>
             </div>
           </div>
 

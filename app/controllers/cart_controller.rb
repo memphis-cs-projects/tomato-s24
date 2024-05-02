@@ -29,7 +29,7 @@ class CartController < ApplicationController
     end
 
     if cart_item.save
-      flash[:success] = "#{zord.name} #{notification&.message || 'has been added to the cart.'}"  # Use safe navigation (&.) to handle nil notification
+      flash[:success] = "#{zord.name} #{ 'has been added to the cart.'}"
       if notification
         notification.status = "Paid"
         notification.save

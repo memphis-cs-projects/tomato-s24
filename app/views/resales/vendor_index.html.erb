@@ -28,7 +28,7 @@
               <%# Disable the Update Status button if status is approved %>
               <%= form_with(model: resale, url: update_status_resale_path(resale), method: :patch) do |f| %>
                 <div class="form-group">
-                  <%= f.select :status, options_for_select([["Pending", "pending"], ["Approved", "approved"], ["Rejected", "rejected"]], selected: resale.status), {}, class: "form-control" %>
+                  <%= f.select :status, options_for_select([["Pending", "Pending"], ["Approved", "Approved"], ["Rejected", "Rejected"]], selected: resale.status), {}, class: "form-control" %>
                 </div>
                 <%= f.submit "Update Status", class: "btn btn-primary", disabled: true %>
               <% end %>
@@ -37,7 +37,7 @@
               <%= button_to "Add as Resale Zord", resell_approval_request_path(resale), method: :post, class: "btn btn-success", disabled: true %>
               <%= form_with(model: resale, url: update_status_resale_path(resale), method: :patch) do |f| %>
                 <div class="form-group">
-                  <%= f.select :status, options_for_select([["Pending", "pending"], ["Approved", "approved"], ["Rejected", "rejected"]], selected: resale.status), {}, class: "form-control" %>
+                  <%= f.select :status, options_for_select([["Pending", "Pending"], ["Approved", "Approved"], ["Rejected", "Rejected"]], selected: resale.status), {}, class: "form-control" %>
                 </div>
                 <%= f.submit "Update Status", class: "btn btn-primary" %>
               <% end %>
